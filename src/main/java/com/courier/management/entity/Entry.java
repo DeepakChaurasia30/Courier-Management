@@ -17,12 +17,10 @@ import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity 
-@Getter @Setter
-@Table(
-    name = "entry_tbl",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"awb_no", "client_id"})
-)
+@Entity
+@Getter
+@Setter
+@Table(name = "entry_tbl", uniqueConstraints = @UniqueConstraint(columnNames = { "awb_no", "client_id" }))
 public class Entry {
 
     @Id
@@ -32,7 +30,7 @@ public class Entry {
     @Column(name = "awb_no", nullable = false, length = 20)
     private String awbNo;
 
-    @Column(name = "awb_date", nullable = false)   // ✅ FIX
+    @Column(name = "awb_date", nullable = false) // ✅ FIX
     private LocalDate awbDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -62,4 +60,14 @@ public class Entry {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+
+    // hybird model for DTO
+
+    @Column(name = "client_id", nullable = false, insertable = false, updatable = false)
+    private Integer clientid;
+    @Column(name = "cust_id", nullable = false, insertable = false, updatable = false)
+    private Long custid;
+    @Column(name = "dest_id", nullable = false, insertable = false, updatable = false)
+    private Long destid;
+
 }

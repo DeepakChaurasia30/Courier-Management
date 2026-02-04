@@ -22,7 +22,7 @@ public class EntryDTO {
 
     private Long customerId;
 
-    private Long clientId;
+    private Integer clientId;
 
     private Long invoiceId; // nullable
      
