@@ -14,8 +14,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity
+@Entity 
+@Getter @Setter
 @Table(
     name = "entry_tbl",
     uniqueConstraints = @UniqueConstraint(columnNames = {"awb_no", "client_id"})
