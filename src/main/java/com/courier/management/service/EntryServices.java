@@ -1,5 +1,6 @@
 package com.courier.management.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,10 @@ public class EntryServices {
 
     private final EntryRepository entryRepository;
     private final EntryMapper entryMapper;
+// Entry need this unique Referce so NEW required
+    // private final Customer customer;
+    // private final Client client;
+    // private final Center center;
 
     // Validation for AWB no. ADD,UPDATE,INVOICED
     public EntryStatus isEntryStatus(String awb_no) {
@@ -45,6 +50,10 @@ public class EntryServices {
     public String saveNewAWb(EntryDTO entryDTO) {
         Entry entry = entryMapper.dtoTOEntry(entryDTO);
 
+        // tempoary fix 
+                // Auto set entry date to today
+        entry.setEntryDate(LocalDateTime.now());
+
         if (entryDTO.getCustomerId() != null) {
             Customer customer = new Customer();
             customer.setCustId(entryDTO.getCustomerId());
@@ -65,6 +74,53 @@ public class EntryServices {
 
         entryRepository.save(entry);
         return "Add success";
+    }
+
+    // Update Logic Starts here
+    // update helper function
+    public EntryDTO getSingalEntry(String awb_no) {
+    
+        String awb = awb_no.trim().toUpperCase(); // be safer side
+
+        Entry entry = entryRepository.findByAwbNo1(awb);
+
+        EntryDTO dto = entryMapper.EntryTODTO(entry);
+
+        return dto;
+    }
+
+    public String updateAwb(Long id, EntryDTO dto) {
+
+        Entry entry = entryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Iteam not found"));
+
+        // entry.setAwbNo(dto.getAwbNo()); not logically correct
+        entry.setAwbDate(dto.getAwbDate());
+        entry.setWeight(dto.getWeight());
+        entry.setCharge(dto.getCharge());
+        entry.setSrvType(dto.getSrvType());
+
+       if (dto.getCustomerId() != null) {
+            Customer customer = new Customer();
+            customer.setCustId(dto.getCustomerId());
+            entry.setCustomer(customer);
+        }
+
+        if (dto.getDestid() != null) {
+            Center center = new Center();
+            center.setDestId(dto.getDestid());
+            entry.setCenter(center);
+        }
+
+        entryRepository.save(entry);
+        return "Add success";
+    }
+
+
+    // delete logic if Invoice==null
+    public void deleteEntry(Long id) {
+
+        entryRepository.deleteById(id);
     }
 
 }

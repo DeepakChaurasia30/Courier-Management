@@ -1,5 +1,8 @@
 package com.courier.management.mapper;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.courier.management.dto.EntryDTO;
@@ -36,6 +39,7 @@ public class EntryMapper {
         entryDTO.setDestid(entry.getDestid());
         entryDTO.setClientId(entry.getClientid());
         entryDTO.setCustomerId(entry.getCustid());
+
 
         return entryDTO;
 
