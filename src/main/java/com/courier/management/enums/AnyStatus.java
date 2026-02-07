@@ -1,6 +1,6 @@
 package com.courier.management.enums;
 
-public enum EntryStatus {
+public enum AnyStatus {
     NEW,
     UPDATE,
     NOT_UPDATABLE

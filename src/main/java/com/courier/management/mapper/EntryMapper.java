@@ -1,8 +1,5 @@
 package com.courier.management.mapper;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Component;
 
 import com.courier.management.dto.EntryDTO;

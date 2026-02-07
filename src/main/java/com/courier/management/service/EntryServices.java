@@ -9,7 +9,7 @@ import com.courier.management.entity.Center;
 import com.courier.management.entity.Client;
 import com.courier.management.entity.Customer;
 import com.courier.management.entity.Entry;
-import com.courier.management.enums.EntryStatus;
+import com.courier.management.enums.AnyStatus;
 import com.courier.management.mapper.EntryMapper;
 import com.courier.management.repository.EntryRepository;
 
@@ -27,21 +27,21 @@ public class EntryServices {
     // private final Center center;
 
     // Validation for AWB no. ADD,UPDATE,INVOICED
-    public EntryStatus isEntryStatus(String awb_no) {
+    public AnyStatus isEntryStatus(String awb_no) {
         String awb = awb_no.trim().toUpperCase(); // be safer side
 
         Optional<Entry> optentry = entryRepository.findByAwbNo(awb);
 
         if (optentry.isEmpty()) {
-            return EntryStatus.NEW;
+            return AnyStatus.NEW;
         }
 
         Entry entry = optentry.get();
         if (entry.getInvoice() == null) {
-            return EntryStatus.UPDATE;
+            return AnyStatus.UPDATE;
         }
 
-        return EntryStatus.NOT_UPDATABLE;
+        return AnyStatus.NOT_UPDATABLE;
 
     }
 

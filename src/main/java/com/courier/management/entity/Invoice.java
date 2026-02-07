@@ -12,15 +12,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "inv_tbl")
+@Getter @Setter
 public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "inv_id")
     private Long invId;
+
+    @Column(name = "inv_no", nullable = false)
+    private String invNo;
 
     @Column(name = "inv_date", nullable = false)
     private LocalDate invDate;
@@ -46,6 +52,9 @@ public class Invoice {
     @Column(name = "fuel_amt", nullable = false)
     private BigDecimal fuelAmt;
 
+    @Column(name = "awb_count", nullable = false)
+    private Long awbCount;
+
     @Column(name = "discount_amt", nullable = false)
     private BigDecimal discountAmt;
 
@@ -59,4 +68,10 @@ public class Invoice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
+
+    // required to common logic and lookup
+    @Column(name = "cust_id", nullable = false, insertable = false, updatable = false)
+    private Long custid;
+    @Column(name = "client_id", nullable = false, insertable = false, updatable = false)
+    private Integer clientid;
 }
