@@ -50,9 +50,16 @@ public class EntryServices {
     public String saveNewAWb(EntryDTO entryDTO) {
         Entry entry = entryMapper.dtoTOEntry(entryDTO);
 
+    
+
         // tempoary fix 
                 // Auto set entry date to today
         entry.setEntryDate(LocalDateTime.now());
+      
+        if(entry.getPinCode().isBlank())
+        {
+            throw new RuntimeException("invlaid");
+        }
 
         if (entryDTO.getCustomerId() != null) {
             Customer customer = new Customer();
@@ -83,6 +90,7 @@ public class EntryServices {
         String awb = awb_no.trim().toUpperCase(); // be safer side
 
         Entry entry = entryRepository.findByAwbNo1(awb);
+        // System.out.println(entry.getPinCode());
 
         EntryDTO dto = entryMapper.EntryTODTO(entry);
 
@@ -99,6 +107,7 @@ public class EntryServices {
         entry.setWeight(dto.getWeight());
         entry.setCharge(dto.getCharge());
         entry.setSrvType(dto.getSrvType());
+        entry.setPinCode(dto.getPinCode());
 
        if (dto.getCustomerId() != null) {
             Customer customer = new Customer();

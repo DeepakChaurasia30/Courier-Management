@@ -63,11 +63,14 @@ public class Entry {
 
     // hybird model for DTO
 
-    @Column(name = "client_id", nullable = false, insertable = false, updatable = false)
-    private Integer clientid;
     @Column(name = "cust_id", nullable = false, insertable = false, updatable = false)
     private Long custid;
     @Column(name = "dest_id", nullable = false, insertable = false, updatable = false)
     private Long destid;
+    @Column(name = "client_id", nullable = false, insertable = false, updatable = false)
+    private Integer clientid;
+
+    @Column(name = "pincode", nullable = false)
+    private String pinCode;
 
 }

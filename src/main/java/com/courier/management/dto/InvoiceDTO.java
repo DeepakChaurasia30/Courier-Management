@@ -13,4 +13,5 @@ public class InvoiceDTO {
     private LocalDate invDateTo;
     private Long custid;
     private Integer clientid;
+    private String discount;
 }

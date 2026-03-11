@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.courier.management.entity.Invoice;
-import com.courier.management.enums.AnyStatus;
+import com.courier.management.projection.InvProjection;
 
 import java.util.Optional;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
    
     @Query("SELECT e FROM Invoice e WHERE e.invNo = :invNo")
-    Optional<AnyStatus> findByInvNoS(String invNo);
+    InvProjection findByInvNoS(String invNo);
 
     Optional<Invoice> findByInvNo(String invNo);
     

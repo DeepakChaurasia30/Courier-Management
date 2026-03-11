@@ -24,6 +24,9 @@ public class EntryDTO {
 
     private Integer clientId;
 
-    private Long invoiceId; // nullable
+    private String invoiceId; // nullable
+
+    private String pinCode;
+
      
 }

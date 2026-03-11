@@ -1,0 +1,711 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="report1" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f835672c-1eae-44f8-8d27-84f3532f9b42" titleNewPage="true">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1220"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="ROW">
+		<conditionalStyle backcolor="#CDD8DF">
+			<conditionExpression><![CDATA[$V{COLUMN_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<style name="Font" mode="Opaque">
+		<conditionalStyle mode="Transparent" forecolor="#FFFFFF" backcolor="#FFFFFF">
+			<conditionExpression><![CDATA[$P{invoice_no}.isEmpty()]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="dt1" class="java.lang.String"/>
+	<parameter name="dt2" class="java.lang.String"/>
+	<parameter name="invoice_no" class="java.lang.String"/>
+	<parameter name="in_words" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="tax_no" class="java.lang.String"/>
+	<parameter name="pan_no" class="java.lang.String"/>
+	<parameter name="phone" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="image1" class="java.lang.String"/>
+	<parameter name="image2" class="java.lang.String"/>
+	<parameter name="condition1" class="java.lang.String"/>
+	<parameter name="condition6" class="java.lang.String"/>
+	<parameter name="condition3" class="java.lang.String"/>
+	<parameter name="condition2" class="java.lang.String"/>
+	<parameter name="condition5" class="java.lang.String"/>
+	<parameter name="condition4" class="java.lang.String"/>
+	<parameter name="type" class="java.lang.String"/>
+	<parameter name="value" class="java.math.BigDecimal"/>
+	<parameter name="rptsubamt" class="java.math.BigDecimal"/>
+	<parameter name="tag_line" class="java.lang.String"/>
+	<parameter name="grdTotal" class="java.math.BigDecimal"/>
+	<parameter name="fuel" class="java.math.BigDecimal"/>
+	<parameter name="HECess" class="java.math.BigDecimal"/>
+	<parameter name="ECess" class="java.math.BigDecimal"/>
+	<parameter name="fuelTaxName" class="java.lang.String"/>
+	<parameter name="serviceTaxName" class="java.lang.String"/>
+	<parameter name="cessName" class="java.lang.String"/>
+	<parameter name="HCessName" class="java.lang.String"/>
+	<parameter name="sTax" class="java.math.BigDecimal"/>
+	<parameter name="bankName" class="java.lang.String"/>
+	<parameter name="accountNo" class="java.lang.String"/>
+	<parameter name="IFCCode" class="java.lang.String"/>
+	<parameter name="dueAmount" class="java.math.BigDecimal"/>
+	<parameter name="ms" class="java.lang.String"/>
+	<parameter name="PaybleAmount" class="java.math.BigDecimal"/>
+	<parameter name="netPay" class="java.math.BigDecimal"/>
+	<parameter name="saccode" class="java.lang.String"/>
+	<parameter name="comp_state" class="java.lang.String"/>
+	<parameter name="comp_statecode" class="java.lang.String"/>
+	<parameter name="condition7" class="java.lang.String"/>
+	<parameter name="condition8" class="java.lang.String"/>
+	<parameter name="cln_state" class="java.lang.String"/>
+	<parameter name="cln_statecode" class="java.lang.String"/>
+	<parameter name="taxableValue" class="java.math.BigDecimal"/>
+	<parameter name="payableWithDue" class="java.math.BigDecimal"/>
+	<parameter name="signature" class="java.lang.String"/>
+	<parameter name="uamno" class="java.lang.String"/>
+	<parameter name="dueDate" class="java.lang.String"/>
+	<parameter name="upi" class="java.lang.String"/>
+	<parameter name="sezType" class="java.lang.String"/>
+	<parameter name="proforma" class="java.lang.String"/>
+	<parameter name="otherRTOReason" class="java.lang.String"/>
+	<parameter name="otherRTOAmount" class="java.math.BigDecimal"/>
+	<parameter name="Place of supply" class="java.lang.String"/>
+	<parameter name="STA_NM" class="java.lang.String"/>
+	<parameter name="state_code" class="java.lang.String"/>
+	<parameter name="invoice_dt" class="java.sql.Date"/>
+	<parameter name="from_date" class="java.sql.Date"/>
+	<parameter name="to_date" class="java.sql.Date"/>
+	<parameter name="sub_client_cd" class="java.lang.String"/>
+	<parameter name="remarks" class="java.lang.String"/>
+	<parameter name="client_cd" class="java.lang.String"/>
+	<parameter name="network" class="java.lang.String"/>
+	<parameter name="edu_cess" class="java.math.BigDecimal"/>
+	<parameter name="h_edu_cess" class="java.math.BigDecimal"/>
+	<parameter name="service_tax" class="java.math.BigDecimal"/>
+	<parameter name="total" class="java.math.BigDecimal"/>
+	<parameter name="client_nm" class="java.lang.String"/>
+	<parameter name="client_address" class="java.lang.String"/>
+	<parameter name="client_fuelRT" class="java.math.BigDecimal"/>
+	<parameter name="gstin_no" class="java.lang.String"/>
+	<parameter name="po_no" class="java.lang.String"/>
+	<field name="awb_no" class="java.lang.String"/>
+	<field name="boking_dt" class="java.sql.Date"/>
+	<field name="destination" class="java.lang.String"/>
+	<field name="service" class="java.lang.String"/>
+	<field name="bil_wt" class="java.math.BigDecimal"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="pkgs" class="java.lang.Integer"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="type" class="java.lang.String"/>
+	<variable name="sno" calculation="Count" class="java.lang.Number">
+		<expression><![CDATA[$F{awb_no}]]></expression>
+	</variable>
+	<variable name="awb_no_1" calculation="Count" class="java.lang.Integer">
+		<expression><![CDATA[$F{awb_no}]]></expression>
+	</variable>
+	<variable name="pkgs_1" calculation="Sum" class="java.lang.Integer">
+		<expression><![CDATA[$F{pkgs}]]></expression>
+	</variable>
+	<variable name="amount_5" resetType="Page" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amount}]]></expression>
+	</variable>
+	<variable name="amount_3" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amount}]]></expression>
+	</variable>
+	<variable name="awb_no_2" calculation="Count" class="java.lang.Integer">
+		<expression><![CDATA[$F{awb_no}]]></expression>
+	</variable>
+	<variable name="amount_2" calculation="Sum" class="java.math.BigDecimal">
+		<expression><![CDATA[$F{amount}]]></expression>
+	</variable>
+	<variable name="Variable_2" class="java.lang.String"/>
+	<title height="802" splitType="Stretch">
+		<element kind="image" uuid="ea814374-0593-45a5-9313-5ccdf4c8087e" x="18" y="11" width="70" height="33" scaleImage="FillFrame" onErrorType="Blank">
+			<expression><![CDATA[$P{image1}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="150257cd-3100-47a0-bb70-490fefd0e329" x="0" y="97" width="264" height="218"/>
+		<element kind="staticText" uuid="81401a8e-9a1c-40fe-94e0-cd219bfe5386" x="266" y="112" width="100" height="15" fontName="Times New Roman" fontSize="9.0">
+			<text><![CDATA[Invoice Period]]></text>
+		</element>
+		<element kind="staticText" uuid="485d9a5e-95a9-4951-a006-ae9e60a46efc" x="266" y="127" width="100" height="15" fontName="Times New Roman" fontSize="9.0">
+			<text><![CDATA[Invoice No.]]></text>
+		</element>
+		<element kind="rectangle" uuid="ebd9fe73-e8a6-4aea-a7d9-e3be4357084d" x="0" y="0" width="556" height="80" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
+		<element kind="staticText" uuid="52afdb52-34fc-4b7c-ad77-71552aa98c51" x="266" y="142" width="100" height="15" fontName="Times New Roman" fontSize="9.0">
+			<text><![CDATA[Invoice Date]]></text>
+		</element>
+		<element kind="line" uuid="ec072678-5a7c-4353-afd3-8633969ee11c" x="0" y="512" width="555" height="1"/>
+		<element kind="line" uuid="e36be91c-85cb-4bda-9d62-157183be0993" x="0" y="528" width="555" height="1"/>
+		<element kind="staticText" uuid="e6978a55-9b6f-411b-868c-365516268ba7" x="141" y="514" width="299" height="13">
+			<text><![CDATA[Payment Advice (Please detach and return with your payment)]]></text>
+		</element>
+		<element kind="line" uuid="71f63570-4557-4fa4-a087-afb239e184b0" x="0" y="547" width="555" height="1"/>
+		<element kind="staticText" uuid="b1036601-6659-4ee6-8bc1-eb91075123fd" x="1" y="531" width="58" height="14">
+			<text><![CDATA[Invoice No:]]></text>
+		</element>
+		<element kind="staticText" uuid="17101265-8dfb-4ffc-a0f1-ad9a68de334f" x="164" y="531" width="30" height="14">
+			<text><![CDATA[Date :]]></text>
+		</element>
+		<element kind="line" uuid="29da757d-9231-444a-844c-d35eaed32b2e" x="286" y="529" width="1" height="74"/>
+		<element kind="staticText" uuid="7f544348-e79f-4c66-9a62-7cf908d17f4d" x="290" y="531" width="68" height="14">
+			<text><![CDATA[Client Name :]]></text>
+		</element>
+		<element kind="line" uuid="98ef37ef-a81b-4a59-a9d2-9cbee94094a2" x="0" y="566" width="555" height="1"/>
+		<element kind="line" uuid="9d5f3d10-5611-4b61-9f68-c81aba7eb28d" x="0" y="585" width="555" height="1"/>
+		<element kind="staticText" uuid="670dedf1-8c07-4837-a478-035a492fe47c" x="4" y="551" width="69" height="14">
+			<text><![CDATA[Name of Bank]]></text>
+		</element>
+		<element kind="staticText" uuid="a9469d51-a9e6-41de-83b2-12289fb7aa26" x="85" y="551" width="102" height="14">
+			<text><![CDATA[Cheque/ DD Number]]></text>
+		</element>
+		<element kind="staticText" uuid="48391a80-ea66-422d-881f-4d92b93c8c7b" x="197" y="551" width="88" height="14">
+			<text><![CDATA[Cheque/ DD Date]]></text>
+		</element>
+		<element kind="staticText" uuid="155fd531-1d1c-46a0-8d54-f6fb8e85fd3b" x="288" y="551" width="102" height="14">
+			<text><![CDATA[Invoice Amount(Rs.)]]></text>
+		</element>
+		<element kind="staticText" uuid="eafda6dd-b462-4de1-b9cc-9d04da45135b" x="399" y="551" width="57" height="14">
+			<text><![CDATA[TDS(Rs.)]]></text>
+		</element>
+		<element kind="staticText" uuid="76c87068-fdab-458a-b341-04b7ed275d89" x="465" y="551" width="86" height="14">
+			<text><![CDATA[Net Amount(Rs.)]]></text>
+		</element>
+		<element kind="line" uuid="83cd5542-276f-48a8-81ad-c018f71c4a57" x="0" y="603" width="555" height="1"/>
+		<element kind="line" uuid="ec53a593-a50b-402d-8018-c43ada63147c" x="77" y="548" width="1" height="37"/>
+		<element kind="line" uuid="19a62b3f-3348-4c44-a553-b9069ddae272" x="191" y="547" width="1" height="37"/>
+		<element kind="line" uuid="6a3f5b59-b88d-43aa-91e1-f30fc7dd8791" x="393" y="547" width="1" height="37"/>
+		<element kind="line" uuid="2d22733b-68a8-4094-905e-40c838c5c1c4" x="462" y="548" width="1" height="37"/>
+		<element kind="line" uuid="0c51217f-6269-446a-9c45-b874b30067a6" x="265" y="127" width="290" height="1"/>
+		<element kind="line" uuid="8f78402b-1ca6-461c-887e-977a90e54c2a" x="265" y="141" width="290" height="1"/>
+		<element kind="line" uuid="cc1f80b5-0964-44ae-9583-961ed0416cc3" x="265" y="156" width="290" height="1"/>
+		<element kind="line" uuid="4ff9a21c-1ef7-4bf8-87ad-1a355a7d6c2a" x="265" y="184" width="290" height="1"/>
+		<element kind="line" uuid="7aad7a70-80cb-4c56-a6ee-78776812fb34" x="264" y="200" width="290" height="1"/>
+		<element kind="line" uuid="6a232cf1-1659-4e76-a778-f2f99bae5d96" x="265" y="216" width="290" height="1"/>
+		<element kind="line" uuid="d87521cb-33bb-4126-a6ad-a7845de6bbdb" x="265" y="247" width="290" height="1"/>
+		<element kind="line" uuid="44fb4a98-90e3-4ff4-b912-d0f6e917bda2" x="265" y="261" width="290" height="1"/>
+		<element kind="line" uuid="b8eeecd5-ca34-4062-9355-e88167d558a8" x="264" y="278" width="291" height="1"/>
+		<element kind="line" uuid="84145b42-a4a2-4b12-9258-b296772a17b5" x="399" y="98" width="1" height="198"/>
+		<element kind="line" uuid="d225d46f-bef6-4664-b739-c4cac7c35358" x="555" y="98" width="1" height="218"/>
+		<element kind="staticText" uuid="d1880667-a9b3-4edd-b750-e3716790ff50" x="468" y="113" width="17" height="14" fontSize="10.0" bold="true">
+			<text><![CDATA[To]]></text>
+		</element>
+		<element kind="line" uuid="d9af2afb-5523-4624-b7e8-e24dac5d4341" x="1" y="686" width="554" height="1">
+			<pen lineStyle="Dashed"/>
+		</element>
+		<element kind="staticText" uuid="3e3bd904-d0f6-4f1d-823b-fc3193d4de87" x="213" y="700" width="130" height="13" fontSize="9.0" bold="true">
+			<text><![CDATA[BILL ACKNOWLEDGMENT]]></text>
+		</element>
+		<element kind="line" uuid="3cf48e63-449e-4f59-b9f7-41db482cd534" x="2" y="713" width="554" height="1"/>
+		<element kind="staticText" uuid="ff7faf87-1d78-4c42-94f7-79dc915e6c29" x="3" y="715" width="67" height="14" bold="true">
+			<text><![CDATA[Client Code:]]></text>
+		</element>
+		<element kind="staticText" uuid="96d7e3c2-3d82-42f8-b225-43b8933ff853" x="3" y="730" width="67" height="14" bold="true">
+			<text><![CDATA[Client Name:]]></text>
+		</element>
+		<element kind="staticText" uuid="bbcf6f3f-a9ea-4c73-a3cf-8ba5c25baeaa" x="252" y="715" width="67" height="14" bold="true">
+			<text><![CDATA[Invoice Date:]]></text>
+		</element>
+		<element kind="staticText" uuid="d6ff7376-f8f9-49ff-9801-0b7a35a32834" x="405" y="715" width="65" height="14" bold="false">
+			<text><![CDATA[Amount(INR)]]></text>
+		</element>
+		<element kind="line" uuid="37a20fc6-4b69-4d50-bef3-2d1d7927f899" x="1" y="745" width="554" height="1"/>
+		<element kind="line" uuid="43d5527e-e29b-4411-bd83-32efa3eb398c" x="1" y="800" width="554" height="1"/>
+		<element kind="line" uuid="c4348a27-1d8f-404f-98e2-1f2adabad67d" x="282" y="746" width="1" height="54"/>
+		<element kind="staticText" uuid="8d013dc0-5828-4b16-8f4f-0ada96a63d0d" x="3" y="747" width="113" height="14" bold="true">
+			<text><![CDATA[Name of the Receiver]]></text>
+		</element>
+		<element kind="staticText" uuid="40a9effd-3822-4771-8c00-af8fc1eeac39" x="3" y="763" width="113" height="14" bold="true">
+			<text><![CDATA[Recieved Date]]></text>
+		</element>
+		<element kind="staticText" uuid="416abd29-3058-4fa2-a1c8-2d35c0a40ab7" x="350" y="747" width="113" height="14" bold="true" hTextAlign="Center">
+			<text><![CDATA[Sign & Seal]]></text>
+		</element>
+		<element kind="line" uuid="b17e0e1d-c761-4410-8b64-da0f4e0a1b61" x="264" y="112" width="291" height="1"/>
+		<element kind="textField" uuid="78204d15-2902-479f-946d-7c239b28ecf6" x="4" y="113" width="259" height="30" fontName="Times New Roman" fontSize="10.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{ms}+$P{client_nm}]]></expression>
+		</element>
+		<element kind="textField" uuid="ad282e32-1845-4e74-916d-1f138cf7c877" x="4" y="149" width="259" height="48" fontSize="8.0">
+			<expression><![CDATA[$P{client_address}]]></expression>
+		</element>
+		<element kind="textField" uuid="e7a05299-7aff-4886-aff3-6b32bd173b62" x="361" y="531" width="190" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{client_nm}]]></expression>
+		</element>
+		<element kind="textField" uuid="01e73963-e76d-4870-b779-9c57c6562def" x="292" y="569" width="81" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" evaluationTime="Report" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{grdTotal}]]></expression>
+		</element>
+		<element kind="textField" uuid="d4603da8-496b-464d-a08e-a54db67c7dd8" x="71" y="715" width="70" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{client_cd}]]></expression>
+		</element>
+		<element kind="textField" uuid="555e1f6c-aed7-44b3-b6e1-cd626eeaa3c1" x="71" y="730" width="478" height="14" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{client_nm}]]></expression>
+		</element>
+		<element kind="textField" uuid="26e96930-28ae-4aac-a09d-136f0e611de0" x="472" y="715" width="79" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" evaluationTime="Report" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{grdTotal}]]></expression>
+		</element>
+		<element kind="textField" uuid="e9155506-1797-4f67-ac65-4c6d86a60554" x="402" y="113" width="64" height="14" pattern="dd/MM/yyyy">
+			<expression><![CDATA[$P{from_date}]]></expression>
+		</element>
+		<element kind="textField" uuid="6e25db4f-c183-4690-b212-6d560ad22233" x="488" y="113" width="67" height="14" pattern="dd/MM/yyyy">
+			<expression><![CDATA[$P{to_date}]]></expression>
+		</element>
+		<element kind="textField" uuid="576c26da-5c6b-4fe0-aa41-52a2175e906d" x="60" y="531" width="104" height="14">
+			<expression><![CDATA[$P{invoice_no}]]></expression>
+		</element>
+		<element kind="textField" uuid="fdeb0047-3fae-48de-b29d-3f25fa12c5f4" x="142" y="715" width="107" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{invoice_no}]]></expression>
+		</element>
+		<element kind="textField" uuid="654d9d9f-52a4-4b4e-8028-b48fddca2c98" x="289" y="586" width="266" height="17" fontName="Times New Roman" fontSize="8.0" pdfFontName="Times-Bold" bold="true" vTextAlign="Middle">
+			<expression><![CDATA["Total: "+$P{in_words}]]></expression>
+		</element>
+		<element kind="textField" uuid="b816ef51-4c59-4036-b9ee-39895c388bd1" x="4" y="9" width="390" height="19" forecolor="#000000" fontName="Times New Roman" fontSize="16.0" pdfFontName="Times-Bold" italic="false" bold="true">
+			<expression><![CDATA[$P{name}]]></expression>
+		</element>
+		<element kind="textField" uuid="64abee99-dfad-48c2-9c4c-5b76883325ba" x="4" y="38" width="306" height="32" forecolor="#000000" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{address}]]></expression>
+		</element>
+		<element kind="textField" uuid="ec65c6bf-7309-41b0-908c-ee29cf118a34" x="6" y="688" width="545" height="12" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true" hTextAlign="Center">
+			<expression><![CDATA[$P{name}]]></expression>
+		</element>
+		<element kind="textField" uuid="10038663-00ca-4641-a46b-f89829a542fb" x="206" y="422" width="335" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{name}]]></expression>
+		</element>
+		<element kind="textField" uuid="9a004b67-6293-4d4a-b7b4-8f8152f3da26" x="4" y="482" width="536" height="14">
+			<expression><![CDATA[$P{condition5}]]></expression>
+		</element>
+		<element kind="textField" uuid="e64f036a-848e-490a-80bd-8bc08a588601" x="4" y="437" width="536" height="14">
+			<expression><![CDATA[$P{condition2}]]></expression>
+		</element>
+		<element kind="textField" uuid="6e434e4c-e1fb-4d72-91c7-665941d22744" x="4" y="452" width="536" height="14">
+			<expression><![CDATA[$P{condition3}]]></expression>
+		</element>
+		<element kind="textField" uuid="89dbc59c-1509-4008-a78e-a1ec16b8f61c" x="4" y="467" width="536" height="14">
+			<expression><![CDATA[$P{condition4}]]></expression>
+		</element>
+		<element kind="staticText" uuid="170c0d74-dd1d-41cd-baaf-33856feb5807" x="4" y="422" width="200" height="14">
+			<text><![CDATA[Please pay by Cheque/Draft favouring M/s]]></text>
+		</element>
+		<element kind="line" uuid="972f4a65-920b-45b6-b355-647e874d8248" x="1" y="296" width="554" height="1"/>
+		<element kind="textField" uuid="bde61d9d-1245-49c0-b37c-1dc16c06c907" x="402" y="142" width="107" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="dd-MMM-yyyy" bold="false">
+			<expression><![CDATA[$P{invoice_dt}]]></expression>
+		</element>
+		<element kind="textField" uuid="cfd3d836-6874-45c6-9c2f-cdb6b56a2b24" x="199" y="531" width="86" height="14" pattern="dd-MMM-yyyy">
+			<expression><![CDATA[$P{invoice_dt}]]></expression>
+		</element>
+		<element kind="textField" uuid="7298ed0e-c6d3-4c29-8338-98c881b81329" x="321" y="715" width="83" height="14" pattern="dd-MMM-yyyy">
+			<expression><![CDATA[$P{invoice_dt}]]></expression>
+		</element>
+		<element kind="textField" uuid="58c2c0b6-e2da-4cea-9ace-952be70cddc3" x="4" y="497" width="536" height="14">
+			<expression><![CDATA[$P{condition6}]]></expression>
+		</element>
+		<element kind="textField" uuid="0771786a-a4e7-46a1-a194-a3cc5ad130be" x="4" y="28" width="306" height="10" forecolor="#000000" fontName="Times New Roman" fontSize="8.0" pdfFontName="Times-Bold" italic="false" bold="true">
+			<expression><![CDATA[$P{tag_line}]]></expression>
+		</element>
+		<element kind="textField" uuid="4db6d457-1005-44a7-8c84-5244274762cb" x="266" y="265" width="132" height="14" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{HCessName}]]></expression>
+		</element>
+		<element kind="textField" uuid="bf601272-d61f-4215-af43-04cd90dbca8e" x="266" y="202" width="131" height="14" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{fuelTaxName}]]></expression>
+		</element>
+		<element kind="textField" uuid="063fe033-a902-4741-9cbc-a84a401c3f0a" x="469" y="281" width="80" height="15" fontName="Times New Roman" pdfFontName="Times-Bold" evaluationTime="Report" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{grdTotal}]]></expression>
+		</element>
+		<element kind="textField" uuid="cc21a3b1-5c68-4158-8bb0-ff4aa0683da2" x="469" y="232" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{sTax}]]></expression>
+		</element>
+		<element kind="textField" uuid="c31f01ab-f87a-4c7e-80cc-f964b30c4b9a" x="469" y="201" width="80" height="15" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{fuel}]]></expression>
+		</element>
+		<element kind="textField" uuid="f34847f0-4b82-41d7-a09a-b0d8e1c4f1ec" x="266" y="248" width="131" height="14" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{cessName}]]></expression>
+		</element>
+		<element kind="textField" uuid="8ff1c9b4-b8bc-4b21-91e7-56cc17ef953a" x="469" y="265" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{HECess}]]></expression>
+		</element>
+		<element kind="staticText" uuid="6ec6ce6f-fa76-4b47-ab4a-d2849d828e90" x="266" y="281" width="130" height="15" fontName="Times New Roman" fontSize="9.0" bold="true">
+			<text><![CDATA[Grand Total   (Round-off)]]></text>
+		</element>
+		<element kind="textField" uuid="cc1ace34-217f-4d07-a4ae-440b77b450b6" x="468" y="185" width="81" height="15" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{value}]]></expression>
+		</element>
+		<element kind="textField" uuid="08b3404a-0151-48ed-bb94-a8097f0134df" x="266" y="233" width="131" height="14" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{serviceTaxName}]]></expression>
+		</element>
+		<element kind="textField" uuid="507bbcb1-68ca-4c19-a58f-e716155674bb" x="469" y="248" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{ECess}]]></expression>
+		</element>
+		<element kind="textField" uuid="7eca8cb1-6efa-4f5c-b830-a47fc956c5d9" x="266" y="185" width="132" height="15" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{type}]]></expression>
+		</element>
+		<element kind="textField" uuid="5b7134dd-d3d6-4c15-8fbb-84f45689d413" x="468" y="171" width="82" height="13" fontName="Times New Roman" pdfFontName="Times-Bold" evaluationTime="Report" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{rptsubamt}]]></expression>
+		</element>
+		<element kind="staticText" uuid="482f7753-000c-4028-813d-51ec463b959b" x="266" y="171" width="100" height="13" fontName="Times New Roman" fontSize="9.0">
+			<text><![CDATA[Amount]]></text>
+		</element>
+		<element kind="textField" uuid="45ea38f7-3ac3-42fb-8553-b8afdd9de963" x="4" y="332" width="375" height="14" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{bankName}]]></expression>
+		</element>
+		<element kind="textField" uuid="f378b436-037c-4517-ae02-affa42ce8994" x="4" y="362" width="375" height="14" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{IFCCode}]]></expression>
+		</element>
+		<element kind="textField" uuid="9e6a0370-d97b-4311-bb75-049fa07a2aae" x="4" y="347" width="375" height="14" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{accountNo}]]></expression>
+		</element>
+		<element kind="image" uuid="df8ce586-bee1-4129-852e-8c425bbe38ef" x="394" y="9" width="160" height="70" scaleImage="FillFrame" onErrorType="Blank" lazy="true">
+			<expression><![CDATA[$P{image2}]]></expression>
+		</element>
+		<element kind="textField" uuid="531443d1-feb7-494d-9abc-6ef2f515f146" x="4" y="137" width="259" height="11" fontName="Times New Roman" fontSize="9.0">
+			<expression><![CDATA[$P{sub_client_cd}]]></expression>
+		</element>
+		<element kind="textField" uuid="3d2ac069-bc34-429d-bc33-cf9ea60d0be3" x="2" y="586" width="283" height="17" fontName="Times New Roman" fontSize="8.0" bold="true" vTextAlign="Middle">
+			<expression><![CDATA["Remarks :"+$P{remarks}]]></expression>
+		</element>
+		<element kind="textField" uuid="f71313cc-5abc-409b-9f9d-37a0f3cc0471" mode="Opaque" x="397" y="298" width="158" height="15" forecolor="#CC0000" backcolor="#FDEDED" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right" vTextAlign="Middle" style="Font">
+			<printWhenExpression><![CDATA[$P{PaybleAmount} != null &&$P{PaybleAmount}.doubleValue() > 0]]></printWhenExpression>
+			<expression><![CDATA[$P{PaybleAmount}]]></expression>
+			<box rightPadding="5" style="Font"/>
+		</element>
+		<element kind="textField" uuid="00e4f93b-30cf-4fbe-868e-0763e52e7c59" mode="Opaque" x="266" y="298" width="134" height="15" forecolor="#CC0000" backcolor="#FDEDED" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true" vTextAlign="Middle" style="Font">
+			<printWhenExpression><![CDATA[$P{netPay} != null && $P{netPay}.doubleValue() > 0]]></printWhenExpression>
+			<expression><![CDATA[$P{netPay}]]></expression>
+			<box leftPadding="5" style="Font"/>
+		</element>
+		<element kind="textField" uuid="ebd7e11c-73c3-43b4-a706-26497ffcd1cc" x="4" y="69" width="306" height="12" forecolor="#000000" fontSize="9.0" bold="true">
+			<expression><![CDATA["Email ID : "+$P{email}]]></expression>
+		</element>
+		<element kind="textField" uuid="a0f92076-a9f8-44c3-b20a-19016a337e72" x="483" y="317" width="66" height="14" hTextAlign="Right">
+			<expression><![CDATA["Code: "+$P{comp_statecode}]]></expression>
+		</element>
+		<element kind="textField" uuid="f4a833be-2fda-4169-8e98-834f3597adb7" x="4" y="377" width="375" height="14" fontName="Times New Roman" fontSize="9.0" bold="true">
+			<expression><![CDATA[$P{pan_no}]]></expression>
+		</element>
+		<element kind="textField" uuid="9a29fcbb-df85-4e52-91fb-bfaf5d3571c3" x="265" y="317" width="113" height="14">
+			<expression><![CDATA["SAC: "+$P{saccode}]]></expression>
+		</element>
+		<element kind="textField" uuid="f44267a8-940d-4644-8949-cf62d9753a62" x="379" y="317" width="104" height="14">
+			<expression><![CDATA["State: "+$P{comp_state}]]></expression>
+		</element>
+		<element kind="textField" uuid="4d269a69-624e-48ce-beb8-0ed234815b22" x="4" y="198" width="260" height="12" fontSize="9.0">
+			<expression><![CDATA["GST No: "+$P{gstin_no}]]></expression>
+		</element>
+		<element kind="textField" uuid="6696f9ed-0701-4d9b-9882-a53bc494f904" x="4" y="224" width="259" height="12" fontName="SansSerif" fontSize="9.0">
+			<expression><![CDATA["State: "+$P{STA_NM}]]></expression>
+		</element>
+		<element kind="line" uuid="0ca31440-3528-42a3-802c-92a68c1ca8a4" x="264" y="97" width="292" height="1"/>
+		<element kind="staticText" uuid="52cdaa26-1386-4b0a-aa9d-2195a2842c49" x="266" y="98" width="100" height="12" fontName="Times New Roman" fontSize="9.0">
+			<text><![CDATA[GST Number]]></text>
+		</element>
+		<element kind="staticText" uuid="07a423d0-cf64-4fc0-bdac-e3422e74b089" x="4" y="99" width="190" height="12" fontSize="9.0" bold="true">
+			<text><![CDATA[Details of Receiver | Billed to:]]></text>
+		</element>
+		<element kind="line" uuid="cea36579-4f2f-41fb-8639-2b8f91701cdb" x="3" y="112" width="263" height="1"/>
+		<element kind="textField" uuid="44488920-8dae-4360-9b29-7ea770016cf4" x="402" y="97" width="149" height="14" forecolor="#000000" fontName="SansSerif" bold="true">
+			<expression><![CDATA[$P{tax_no}]]></expression>
+		</element>
+		<element kind="staticText" uuid="874d7fde-3ec0-49dd-9fb1-d74fef3dae79" x="4" y="299" width="161" height="14" fontSize="9.0">
+			<text><![CDATA[Tax subject to reverse charge]]></text>
+		</element>
+		<element kind="staticText" uuid="8cfcd5cd-93bf-4548-b89c-92cfb3ef177a" x="179" y="299" width="26" height="14" fontSize="9.0" strikeThrough="true">
+			<text><![CDATA[YES]]></text>
+		</element>
+		<element kind="staticText" uuid="c577f956-0c4a-4e78-b0a3-3ac74f5c425f" x="223" y="299" width="26" height="14" fontSize="9.0" strikeThrough="false">
+			<text><![CDATA[NO]]></text>
+		</element>
+		<element kind="line" uuid="78564ca8-2310-48c5-9a4c-804e7a414f07" x="265" y="315" width="290" height="1"/>
+		<element kind="textField" uuid="43855dab-9efc-4d68-9287-74f0ec527948" x="4" y="237" width="259" height="12" fontName="SansSerif" fontSize="9.0">
+			<expression><![CDATA[$P{Place of supply}]]></expression>
+		</element>
+		<element kind="line" uuid="b4d4cb45-739a-40e2-862c-5886166f7919" x="265" y="231" width="290" height="1"/>
+		<element kind="staticText" uuid="0c8a6e59-12db-4d5d-bd1f-2e15c99d63d6" x="266" y="217" width="132" height="13" fontName="Times New Roman" fontSize="9.0" bold="true">
+			<text><![CDATA[Taxable Value]]></text>
+		</element>
+		<element kind="textField" uuid="50307cba-9dbe-4d4a-808f-a8f7b42cc0aa" x="469" y="217" width="81" height="13" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{taxableValue}]]></expression>
+		</element>
+		<element kind="staticText" uuid="5cc6a0df-e9d8-4c13-8dfa-482756020f99" x="4" y="317" width="120" height="14">
+			<text><![CDATA[Description of Service :]]></text>
+		</element>
+		<element kind="staticText" uuid="24ab33b7-655a-4d44-bbef-144c3c75537b" x="126" y="317" width="122" height="14" bold="true">
+			<text><![CDATA[Courier Services]]></text>
+		</element>
+		<element kind="image" uuid="d40632ed-aff4-4dd8-ac15-7115c5b35c0e" x="406" y="619" width="144" height="62" scaleImage="FillFrame" onErrorType="Blank">
+			<expression><![CDATA[$P{signature}]]></expression>
+		</element>
+		<element kind="textField" uuid="90a18a2b-4237-4acb-989e-fdf6933f10dc" x="4" y="392" width="375" height="14" fontName="Times New Roman" bold="true">
+			<expression><![CDATA[$P{uamno}]]></expression>
+		</element>
+		<element kind="staticText" uuid="09d429c5-78f0-49e3-8929-77544a12f217" x="4" y="83" width="170" height="12" fontSize="9.0">
+			<text><![CDATA[ORIGINAL FOR RECIPIENT]]></text>
+		</element>
+		<element kind="textField" uuid="ef0adb1b-67de-4b41-8e25-778132d979c1" x="4" y="211" width="259" height="12" fontSize="9.0" bold="false">
+			<expression><![CDATA["PO Number : "+$P{po_no}]]></expression>
+		</element>
+		<element kind="line" uuid="e5e5e878-e7f8-435e-b1ce-c015decfcf41" x="265" y="171" width="290" height="1"/>
+		<element kind="staticText" uuid="bc3ee0b0-3d8e-4bc1-ab06-5b76dc34942a" x="4" y="407" width="86" height="14" forecolor="#CC0000" fontName="Times New Roman" fontSize="9.0" bold="true">
+			<text><![CDATA[Payment Due Date :]]></text>
+		</element>
+		<element kind="textField" uuid="2a42addd-cc72-49fc-974e-ccb97e2b5378" x="90" y="407" width="107" height="14" forecolor="#CC0000" fontName="Times New Roman" bold="true">
+			<expression><![CDATA[$P{dueDate}]]></expression>
+		</element>
+		<element kind="textField" uuid="18a0187f-f43b-4a50-a548-f2bf9f7153e1" x="349" y="606" width="201" height="12" forecolor="#000000" fontName="Times New Roman" fontSize="8.0" pdfFontName="Times-Bold" italic="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["For "+$P{name}]]></expression>
+		</element>
+		<element kind="image" uuid="43c880e3-b9b8-4cc6-b0db-aba85680650c" x="35" y="615" width="120" height="70" onErrorType="Blank">
+			<expression><![CDATA[$P{upi}]]></expression>
+		</element>
+		<element kind="staticText" uuid="c369b559-7db5-407a-aaf4-83a59cc3fe1b" x="35" y="605" width="120" height="10" fontName="Times New Roman" fontSize="8.0" bold="true">
+			<text><![CDATA[<< Scan & Pay>>]]></text>
+		</element>
+		<element kind="textField" uuid="0d7884e2-6088-4606-867b-600ea6f5efa0" x="4" y="250" width="259" height="45" fontSize="8.0">
+			<expression><![CDATA[$P{sezType}]]></expression>
+		</element>
+		<element kind="textField" uuid="df147917-4ddf-41ab-bfb7-38e4973d6b70" x="189" y="81" width="205" height="16" fontName="Times New Roman" fontSize="12.0" bold="true" hTextAlign="Center">
+			<expression><![CDATA[$P{proforma}]]></expression>
+		</element>
+		<element kind="textField" uuid="c408e2d7-b785-4e71-a18b-7a72953542b5" x="402" y="128" width="107" height="13" fontName="SansSerif" bold="true">
+			<expression><![CDATA[$P{invoice_no}]]></expression>
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+			<property name="com.jaspersoft.studio.unit.y" value="px"/>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="component" uuid="8339cd7c-1719-44e6-9d34-e7fc0e20f27c" x="180" y="763" width="100" height="30" printRepeatedValues="false">
+			<component kind="barcode4j:Code128" textPosition="bottom">
+				<codeExpression><![CDATA[$P{invoice_no}]]></codeExpression>
+			</component>
+		</element>
+	</title>
+	<pageHeader height="73" splitType="Stretch">
+		<element kind="rectangle" uuid="e7e409a7-6da9-4682-bc3c-63da96eada41" x="1" y="57" width="553" height="14" forecolor="#FFFFFF" backcolor="#C0C0C0"/>
+		<element kind="staticText" uuid="d9617cbc-d626-42bd-b902-e0b13657b532" x="220" y="2" width="100" height="14" forecolor="#666666" fontSize="11.0" bold="true" hTextAlign="Center">
+			<text><![CDATA[SUMMARY]]></text>
+		</element>
+		<element kind="rectangle" uuid="694f8178-4403-457e-a641-819de9a120b6" x="1" y="16" width="553" height="39" forecolor="#000000" backcolor="#FFFFFF"/>
+		<element kind="staticText" uuid="a0206d2f-6a1f-43ff-a371-feb0116a38c4" x="7" y="17" width="27" height="21" forecolor="#000000" fontSize="8.0" bold="true">
+			<text><![CDATA[To,]]></text>
+		</element>
+		<element kind="staticText" uuid="335dc94d-4cfd-4d07-b19d-68a2447a5b3f" x="379" y="32" width="55" height="11" forecolor="#000000" fontSize="8.0" bold="true">
+			<text><![CDATA[Invoice Date :]]></text>
+		</element>
+		<element kind="staticText" uuid="6635c9e3-5c38-4930-bf05-784ba1727b35" x="379" y="20" width="55" height="11" forecolor="#000000" fontSize="8.0" bold="true">
+			<text><![CDATA[Invoice No :]]></text>
+		</element>
+		<element kind="staticText" uuid="2c47800b-af9b-4682-873e-ed6b9878ac37" x="379" y="44" width="28" height="11" forecolor="#000000" fontSize="8.0" bold="true">
+			<text><![CDATA[From]]></text>
+		</element>
+		<element kind="staticText" uuid="6901f4a9-3d4e-4865-a58f-aea4509f40e9" x="468" y="43" width="17" height="11" forecolor="#000000" fontSize="8.0" bold="true">
+			<text><![CDATA[To]]></text>
+		</element>
+		<element kind="staticText" uuid="1e4910f0-aa15-4e94-814c-b8dea670a8be" x="198" y="58" width="110" height="13" forecolor="#2C81B7" bold="true">
+			<text><![CDATA[Destination]]></text>
+		</element>
+		<element kind="staticText" uuid="a67ca2fc-1afc-4ea3-8e1a-09bd5ecee3b7" x="403" y="58" width="41" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Right">
+			<text><![CDATA[Weight]]></text>
+		</element>
+		<element kind="staticText" uuid="8d50d770-848c-49cb-8c74-a86833de9585" x="455" y="58" width="24" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Center">
+			<text><![CDATA[D/N]]></text>
+		</element>
+		<element kind="staticText" uuid="9364fe44-6fca-4e28-9eda-69503c2b8c39" x="140" y="58" width="39" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Center">
+			<text><![CDATA[Date]]></text>
+		</element>
+		<element kind="textField" uuid="c389d0cb-8cc8-489a-944f-1667f5057260" x="26" y="23" width="271" height="32" forecolor="#000000" fontName="Times New Roman" fontSize="8.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{client_nm}]]></expression>
+		</element>
+		<element kind="textField" uuid="4a394dab-0e50-47f8-b904-0fe55df109e9" x="438" y="31" width="110" height="11" forecolor="#000000" fontSize="8.0" pattern="dd-MMM-yyyy" bold="true">
+			<expression><![CDATA[$P{invoice_dt}]]></expression>
+		</element>
+		<element kind="staticText" uuid="69d7310b-eddd-4bb8-8712-20af87cb18fe" x="488" y="58" width="63" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Right">
+			<text><![CDATA[Amount]]></text>
+		</element>
+		<element kind="staticText" uuid="317e0fcd-4da0-4ad9-9891-6787922e2f69" x="375" y="58" width="23" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Center">
+			<text><![CDATA[Pcs]]></text>
+		</element>
+		<element kind="staticText" uuid="d1d5e603-4f7c-4bd9-8f1e-905d3f09721a" x="37" y="58" width="96" height="13" forecolor="#2C81B7" bold="true">
+			<text><![CDATA[Awb No.]]></text>
+		</element>
+		<element kind="staticText" uuid="5828a755-aa87-48a8-b4c1-0f8f2212b944" x="7" y="58" width="25" height="13" forecolor="#2C81B7" bold="true" hTextAlign="Right">
+			<text><![CDATA[SNo]]></text>
+		</element>
+		<element kind="textField" uuid="8610dedf-00cc-4051-afb5-cf77ff75ca84" x="438" y="19" width="110" height="11" forecolor="#000000" fontSize="8.0" bold="true">
+			<expression><![CDATA[$P{invoice_no}]]></expression>
+		</element>
+		<element kind="textField" uuid="f4aa880a-41af-4ee9-b391-e77239ef76e9" x="410" y="43" width="56" height="11" forecolor="#000000" fontSize="8.0" pattern="dd-MMM-yyyy" bold="true">
+			<expression><![CDATA[$P{from_date}]]></expression>
+		</element>
+		<element kind="textField" uuid="dc43abe3-633d-4dfc-92a5-e377bd4c4100" x="486" y="43" width="62" height="11" forecolor="#000000" fontSize="8.0" pattern="dd-MMM-yyyy" bold="true">
+			<expression><![CDATA[$P{to_date}]]></expression>
+		</element>
+		<element kind="textField" uuid="2d8eabfc-1d82-4881-84ed-eeb38d528e52" x="343" y="2" width="212" height="14" fontName="Times New Roman" fontSize="10.0" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$P{name}]]></expression>
+		</element>
+		<element kind="staticText" uuid="f64f7dde-8c05-4216-bd7b-3fa1ee916bc2" x="310" y="58" width="25" height="13" forecolor="#2C81B7" bold="true">
+			<text><![CDATA[State]]></text>
+		</element>
+		<element kind="staticText" uuid="f55b1ac0-8906-4dcf-b1a8-d70fbf1b48bb" x="342" y="58" width="30" height="13" forecolor="#2C81B7" bold="true">
+			<text><![CDATA[Mode]]></text>
+		</element>
+	</pageHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<element kind="frame" uuid="33204743-cbab-403e-a7a6-168155d336e1" mode="Transparent" x="2" y="2" width="552" height="12" style="ROW">
+				<element kind="textField" uuid="9b4e95b8-0a79-471b-9f77-d00f62774458" x="310" y="0" width="23" height="12" fontSize="9.0">
+					<expression><![CDATA[$F{state}]]></expression>
+				</element>
+				<element kind="textField" uuid="974b88b2-898f-440e-95c3-bb712b70c86d" x="339" y="0" width="30" height="12" fontSize="9.0">
+					<expression><![CDATA[$F{service}]]></expression>
+				</element>
+			</element>
+			<element kind="textField" uuid="a7a892f1-144d-43a6-b04a-e9751372245d" x="37" y="1" width="96" height="12" fontSize="9.0" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{awb_no}]]></expression>
+			</element>
+			<element kind="textField" uuid="2e36b59e-2c23-4bec-9c3a-e8b3bc0b38f9" x="138" y="1" width="54" height="12" fontSize="9.0" pattern="dd-MMM-yy" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{boking_dt}]]></expression>
+			</element>
+			<element kind="textField" uuid="d587bad9-d348-4b1d-b0c0-6f96a28d15e6" x="375" y="1" width="22" height="12" fontSize="9.0" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{pkgs}]]></expression>
+			</element>
+			<element kind="textField" uuid="a530af84-1a48-4577-a0d9-2f8fe34bb892" x="403" y="1" width="41" height="12" fontSize="9.0" pattern="###0.000" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{bil_wt}]]></expression>
+			</element>
+			<element kind="textField" uuid="11ffe756-fcbb-48c9-bc5d-05014f6d43a7" x="455" y="1" width="24" height="12" fontSize="9.0" hTextAlign="Left" vTextAlign="Middle">
+				<expression><![CDATA[$F{type}]]></expression>
+			</element>
+			<element kind="textField" uuid="32288bbe-a997-46f1-88b8-bb7ef5594f7e" x="489" y="1" width="62" height="12" fontSize="9.0" pattern="###0.00" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{amount}]]></expression>
+			</element>
+			<element kind="textField" uuid="b0ec6ce4-ac05-45b4-97a9-9db22cc34883" x="198" y="1" width="110" height="12" fontSize="9.0" vTextAlign="Middle">
+				<expression><![CDATA[$F{destination}]]></expression>
+			</element>
+			<element kind="textField" uuid="1523f6e4-3551-4f1d-a6aa-350b13222b77" x="6" y="1" width="25" height="12" fontSize="9.0" pattern="###0" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$V{sno}]]></expression>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="14">
+		<element kind="textField" uuid="1c485d30-1c57-4774-add1-4abf05685e60" x="488" y="1" width="64" height="12" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$V{amount_5}]]></expression>
+		</element>
+		<element kind="staticText" uuid="3dc65782-5fd1-41bd-b47e-66d60402da61" x="431" y="2" width="55" height="12" fontSize="9.0" bold="true">
+			<text><![CDATA[Page Total:]]></text>
+		</element>
+		<element kind="staticText" uuid="88638a70-a1c8-4ab5-b111-25010755ad5a" x="4" y="2" width="55" height="12" fontSize="9.0" bold="true">
+			<text><![CDATA[Sub Total:]]></text>
+		</element>
+		<element kind="textField" uuid="8a955da8-b6ce-4a19-ac8b-0f43688fc30f" x="61" y="1" width="64" height="12" fontName="Times New Roman" fontSize="9.0" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$V{amount_3}]]></expression>
+		</element>
+	</columnFooter>
+	<pageFooter height="14" splitType="Stretch">
+		<element kind="frame" uuid="5c6642a5-8ebf-4fb2-95d3-d933ddc11713" mode="Opaque" x="2" y="1" width="552" height="12" forecolor="#D0B48E" backcolor="#C0C0C0">
+			<element kind="textField" uuid="adc50e7d-ac36-4b5c-8f3c-7368ce6afb65" x="443" y="0" width="80" height="12" forecolor="#736343" fontSize="8.0" bold="true" hTextAlign="Right">
+				<expression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></expression>
+			</element>
+			<element kind="textField" uuid="25fb089b-9592-4028-bd1f-bfa52b7d4082" x="526" y="0" width="20" height="12" forecolor="#736343" fontSize="8.0" evaluationTime="Report" bold="true">
+				<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+			</element>
+			<element kind="textField" uuid="819fea6b-2b2e-4feb-863c-78fde3440485" x="13" y="0" width="100" height="12" forecolor="#736343" fontSize="8.0" bold="true">
+				<expression><![CDATA[$P{client_cd}]]></expression>
+			</element>
+		</element>
+		<element kind="line" uuid="099ab41a-5ecf-4dda-83e4-4c78fbc007d2" x="1" y="0" width="554" height="1">
+			<pen lineWidth="0.5"/>
+		</element>
+	</pageFooter>
+	<summary height="248" splitType="Stretch">
+		<element kind="line" uuid="c440878b-b53d-4e22-bda2-ae81b08a928a" x="1" y="2" width="555" height="1">
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="staticText" uuid="e6a88ee0-764c-4558-9970-77ae21ec6e6a" x="135" y="5" width="65" height="16">
+			<text><![CDATA[Total Pcs   =]]></text>
+		</element>
+		<element kind="staticText" uuid="6025b160-6e4b-4515-be59-0813f4cb979a" x="3" y="5" width="58" height="16">
+			<text><![CDATA[Total Awb=]]></text>
+		</element>
+		<element kind="textField" uuid="1de7e55f-d776-49e4-b859-4676a2b632b4" x="62" y="5" width="72" height="16" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true">
+			<expression><![CDATA[$V{awb_no_1}]]></expression>
+		</element>
+		<element kind="textField" uuid="a3b5c680-5668-47ae-9ce7-d48216fa6e18" x="195" y="5" width="89" height="16" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="###0" bold="true">
+			<expression><![CDATA[$V{pkgs_1}]]></expression>
+		</element>
+		<element kind="staticText" uuid="1741cb6e-724d-469d-9cfe-e728434c55c3" x="302" y="5" width="84" height="14">
+			<text><![CDATA[Sub Total 1]]></text>
+		</element>
+		<element kind="line" uuid="9e4dbfaa-66eb-4de8-963a-6e15c03b6e98" x="0" y="36" width="555" height="1">
+			<pen lineWidth="0.5"/>
+		</element>
+		<element kind="textField" uuid="d73268eb-1b9e-4225-9af8-e141e2df6c38" x="471" y="5" width="80" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$V{amount_2}]]></expression>
+		</element>
+		<element kind="line" uuid="2053ddee-cc21-4071-a5b5-8967d30334a8" x="297" y="149" width="258" height="1"/>
+		<element kind="line" uuid="b14a6dc1-ade1-4a21-8af1-44a333763efd" x="297" y="167" width="258" height="1"/>
+		<element kind="textField" uuid="68fe0a4d-e657-43ed-8429-5a230d4d382a" x="302" y="73" width="150" height="14">
+			<expression><![CDATA[$P{fuelTaxName}]]></expression>
+		</element>
+		<element kind="textField" uuid="5009d810-3e48-48a0-a8c2-43348d1ede7d" x="301" y="118" width="150" height="14">
+			<expression><![CDATA[$P{cessName}]]></expression>
+		</element>
+		<element kind="textField" uuid="5760d253-a974-4947-830c-6c584e41c043" x="470" y="72" width="80" height="15" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{fuel}]]></expression>
+		</element>
+		<element kind="textField" uuid="c9d0319d-fdcf-4726-b2ee-c0367fb42869" x="470" y="118" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{ECess}]]></expression>
+		</element>
+		<element kind="textField" uuid="244c5564-4b62-45a0-808f-33e8669afac8" x="301" y="56" width="150" height="15">
+			<expression><![CDATA[$P{type}]]></expression>
+		</element>
+		<element kind="textField" uuid="af4e11eb-5864-4f92-a72b-41e1f9735196" x="301" y="103" width="150" height="14">
+			<expression><![CDATA[$P{serviceTaxName}]]></expression>
+		</element>
+		<element kind="textField" uuid="2539fa00-1de1-459f-b8d0-b14545033678" x="470" y="151" width="80" height="15" fontName="Times New Roman" pdfFontName="Times-Bold" evaluationTime="Report" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{grdTotal}]]></expression>
+		</element>
+		<element kind="staticText" uuid="f813f5a2-696a-4022-9d69-ba24461f11a3" x="302" y="41" width="150" height="13">
+			<text><![CDATA[Sub Total 2]]></text>
+		</element>
+		<element kind="textField" uuid="a3003026-f7ec-4e56-a54d-faf43205bfcf" x="470" y="103" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{sTax}]]></expression>
+		</element>
+		<element kind="staticText" uuid="0451643f-ba31-4e0d-9f5c-031e976c3b29" x="301" y="151" width="151" height="15" bold="true">
+			<text><![CDATA[Grand Total   (Round-off)]]></text>
+		</element>
+		<element kind="textField" uuid="d3371c65-3749-454d-b8da-273fd5c46a5c" x="470" y="135" width="80" height="14" evaluationTime="Report" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{HECess}]]></expression>
+		</element>
+		<element kind="textField" uuid="8917f71b-9d2d-4b72-b41c-267ccc427422" x="301" y="135" width="150" height="14">
+			<expression><![CDATA[$P{HCessName}]]></expression>
+		</element>
+		<element kind="textField" uuid="7695b79d-f247-484d-96f3-9617a66f3377" x="471" y="56" width="79" height="15" pattern="###0.00" hTextAlign="Right">
+			<expression><![CDATA[$P{value}]]></expression>
+		</element>
+		<element kind="textField" uuid="e47ef434-02d3-4e1c-8900-72565da46b25" mode="Opaque" x="451" y="169" width="103" height="15" forecolor="#CC0000" backcolor="#FFCCCC" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$P{PaybleAmount} != null &&$P{PaybleAmount}.doubleValue() > 0
+]]></printWhenExpression>
+			<expression><![CDATA[$P{PaybleAmount}]]></expression>
+			<box rightPadding="5"/>
+		</element>
+		<element kind="textField" uuid="5a74af2b-f44c-4fe5-9707-84d696b18ef6" mode="Opaque" x="297" y="169" width="154" height="15" forecolor="#CC0000" backcolor="#FFCCCC" fontName="Times New Roman" pdfFontName="Times-Bold" bold="true" vTextAlign="Middle">
+			<printWhenExpression><![CDATA[$P{netPay} != null && $P{netPay}.doubleValue() > 0]]></printWhenExpression>
+			<expression><![CDATA[$P{netPay}]]></expression>
+			<box leftPadding="5"/>
+		</element>
+		<element kind="staticText" uuid="36968e89-49cb-4640-9a3e-82e4e94e0912" x="302" y="88" width="149" height="14" bold="true">
+			<text><![CDATA[Taxable Value]]></text>
+		</element>
+		<element kind="textField" uuid="3fa3fe6e-889f-43d5-af9c-3f175776e9df" x="472" y="88" width="77" height="14" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$P{taxableValue}]]></expression>
+		</element>
+		<element kind="textField" uuid="945f4af4-4c9d-486a-9e76-cf488e79759d" x="302" y="21" width="157" height="14">
+			<expression><![CDATA[$P{otherRTOReason}]]></expression>
+		</element>
+		<element kind="textField" uuid="c643f4e2-af7e-4a1e-a952-61ba131ed48a" x="471" y="40" width="80" height="14" fontName="Times New Roman" pdfFontName="Times-Bold" pattern="###0.00" bold="true" hTextAlign="Right">
+			<expression><![CDATA[$V{amount_2}]]></expression>
+		</element>
+		<element kind="rectangle" uuid="da1f7312-208a-4f88-97f2-ab5a58b3cc54" x="3" y="41" width="289" height="36" style="Font">
+			<property name="com.jaspersoft.studio.unit.x" value="px"/>
+		</element>
+		<element kind="textField" uuid="39cfc7c8-1f1a-43f7-9b02-c975c3b58e4e" x="4" y="40" width="288" height="35" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["In Word :"+$P{in_words}]]></expression>
+		</element>
+	</summary>
+</jasperReport>

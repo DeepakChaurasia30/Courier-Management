@@ -5,10 +5,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.courier.management.dto.EntryDTO;
 import com.courier.management.enums.AnyStatus;
+
 import com.courier.management.service.EntryServices;
 
 import lombok.RequiredArgsConstructor;
 
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,11 +23,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/entry")
 @RequiredArgsConstructor
+@CrossOrigin
 public class EntryContoller {
 
     private final EntryServices entryServices;
 
-    @GetMapping("/getStatus")
+    @GetMapping("/getstatus")
     public AnyStatus getEntryStatus(@RequestParam String awb) {
         return entryServices.isEntryStatus(awb);
     }

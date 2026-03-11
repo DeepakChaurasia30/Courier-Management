@@ -17,7 +17,8 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "inv_tbl")
-@Getter @Setter
+@Getter
+@Setter
 public class Invoice {
 
     @Id
@@ -54,6 +55,9 @@ public class Invoice {
 
     @Column(name = "awb_count", nullable = false)
     private Long awbCount;
+
+    @Column(name = "is_cancel", nullable = false)
+    private Boolean isCancel;
 
     @Column(name = "discount_amt", nullable = false)
     private BigDecimal discountAmt;

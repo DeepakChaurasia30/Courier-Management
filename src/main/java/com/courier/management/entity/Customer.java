@@ -17,16 +17,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 
-@Table(
-    name = "cust_tbl",
-    uniqueConstraints = {
+@Table(name = "cust_tbl", uniqueConstraints = {
         @UniqueConstraint(columnNames = "cust_name"),
         @UniqueConstraint(columnNames = "cust_code"),
-        @UniqueConstraint(columnNames = {"cust_gst", "client_id"})
-    }
-)
+        @UniqueConstraint(columnNames = "client_id" )
+})
 public class Customer {
 
     @Id
@@ -40,10 +38,19 @@ public class Customer {
     @Column(name = "cust_code", nullable = false)
     private String custCode;
 
-    @Column(name = "cust_gst", nullable = false)
+    @Column(name = "cont_p", nullable = true)
+    private String contPerson;
+
+    @Column(name = "cont_mob", nullable = true)
+    private String contNo;
+
+    @Column(name = "cust_mail", nullable = true)
+    private String custMail;
+
+    @Column(name = "cust_gst", nullable = true)
     private String custGst;
 
-    @Column(name = "cust_add", nullable = false)   // ✅ FIX
+    @Column(name = "cust_add", nullable = false) // ✅ FIX
     private String custAdd;
 
     @Column(name = "cust_pin", nullable = false)
@@ -68,5 +75,10 @@ public class Customer {
 
     @Column(name = "fuel_rate", nullable = false)
     private BigDecimal fuelRate;
-}
 
+    @Column(name = "client_id", nullable = false, insertable = false, updatable = false)
+    private Integer clientId;
+
+    @Column(name = "cust_state_code", nullable = false, insertable = false, updatable = false)
+    private String custStateCode;
+}

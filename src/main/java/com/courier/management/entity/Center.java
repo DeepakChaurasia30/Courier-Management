@@ -14,11 +14,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
-@Table(
-    name = "center_tbl",
-    uniqueConstraints = @UniqueConstraint(columnNames = "dest_name")
-)
+@Getter
+@Setter
+@Table(name = "center_tbl", uniqueConstraints = @UniqueConstraint(columnNames = "dest_name"))
 public class Center {
 
     @Id
@@ -33,4 +31,3 @@ public class Center {
     @JoinColumn(name = "state_code", nullable = false)
     private State state;
 }
-

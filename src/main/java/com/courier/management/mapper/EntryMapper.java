@@ -1,9 +1,12 @@
 package com.courier.management.mapper;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Component;
 
 import com.courier.management.dto.EntryDTO;
 import com.courier.management.entity.Entry;
+import com.courier.management.entity.Invoice;
 
 @Component
 public class EntryMapper {
@@ -17,7 +20,8 @@ public class EntryMapper {
         entry.setWeight(dto.getWeight());
         entry.setCharge(dto.getCharge());
         entry.setSrvType(dto.getSrvType());
-        entry.setEntryDate(dto.getEntryDate());
+        entry.setEntryDate(LocalDateTime.now());
+        entry.setPinCode(dto.getPinCode());
 
         // handle cust, dest,client at Service Logic
 
@@ -26,6 +30,11 @@ public class EntryMapper {
 
     public EntryDTO EntryTODTO(Entry entry) {
         EntryDTO entryDTO = new EntryDTO();
+        if(entry.getInvoice() != null)
+        {
+        Invoice inv = entry.getInvoice();
+        entryDTO.setInvoiceId(inv.getInvNo()); // can be null
+        }
         entryDTO.setId(entry.getId());
         entryDTO.setAwbNo(entry.getAwbNo());
         entryDTO.setAwbDate(entry.getAwbDate());
@@ -36,6 +45,7 @@ public class EntryMapper {
         entryDTO.setDestid(entry.getDestid());
         entryDTO.setClientId(entry.getClientid());
         entryDTO.setCustomerId(entry.getCustid());
+        entryDTO.setPinCode(entry.getPinCode());
 
 
         return entryDTO;
