@@ -8,8 +8,17 @@ import { fetchCustomers } from "../utilities/customer";
 import { getMatchPin, getPinDet } from "../../api/destApi";
 import { addCustomer, updateCustomer, getCustomerById } from "../../api/custApi";
 import Spinner from "../../components/ui/Spinner";
+import { GlobalContext } from "../../context/GlobalContext";
 
-const emptyCustomer = {
+
+
+
+export default function CustomerForm() {
+ 
+  const {clientID:cID}  = useContext(GlobalContext)
+
+
+  const emptyCustomer = {
   cust_code: "",
   cust_name: "",
   contact_person: "",
@@ -25,10 +34,10 @@ const emptyCustomer = {
   gst_state_code: "",
   fuel_rate: 0,
   discount_rate: "",
-  clientId: 1,
+  clientId: cID,
 };
-
-export default function CustomerForm() {
+    
+  
   const [customer, setCustomer] = useState(emptyCustomer);
   const [customerOptions, setCustomerOptions] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -55,7 +64,7 @@ export default function CustomerForm() {
   /* ---------- LOAD CUSTOMERS ---------- */
   const loadCustomerOptions = async () => {
     try {
-      const data = await fetchCustomers(1);
+      const data = await fetchCustomers(cID);
       setCustomerOptions(data || []);
     } catch {
       toast.error("Customer load failed");
@@ -127,7 +136,7 @@ export default function CustomerForm() {
       gst_state_code: pinData.stateCode || "",
       fuel_rate: apiData.fuelRate || 0,
       discount_rate: apiData.discountRate || "",
-      clientId: 1,
+      clientId: cID,
     });
 
     // Set existing image for preview
@@ -177,7 +186,7 @@ export default function CustomerForm() {
 
   /* ---------- DTO ---------- */
   const formToBackendObj = () => ({
-    clientId: 1,
+    clientId: cID,
     contNo: customer.mobile,
     contPerson: customer.contact_person,
     custAdd: customer.address1,

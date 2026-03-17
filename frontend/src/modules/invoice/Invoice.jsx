@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { fetchCustomers } from "../utilities/customer";
 import Select from "react-select";
 import { cancelInv, genInv, getinvpdf } from "../../api/invoice";
@@ -7,8 +7,15 @@ import { getInvno } from "../../api/invoiceno";
 import toast from "react-hot-toast";
 import Spinner from "../../components/ui/Spinner";
 import { getInvoiceTableData } from "../utilities/getInvoiceTableData";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Invoice = () => {
+
+  const {clientID:cID}  = useContext(GlobalContext)
+
+  // const cID =1;
+  console.log(cID);
+  
 
   const [activeTab, setActiveTab] = useState("create");
   const [customer, setCustomer] = useState([]);
@@ -23,7 +30,7 @@ const Invoice = () => {
     invDateFrom: "",
     invDateTo: "",
     discount: 0,
-    clientid: 1
+    clientid: cID
   });
 
   const [editInvoiceNo, setEditInvoiceNo] = useState({ inv: "", gstMidlabell: "INV" });
@@ -37,7 +44,7 @@ const Invoice = () => {
   /* ================= LOAD TABLE ================= */
   const loadInvoiceTable = async () => {
     try {
-      const res = await getInvoiceTableData(1);  //fix hardcode value
+      const res = await getInvoiceTableData(cID);  //fix hardcode value
       console.log(res);
 
       setInvoiceList(res.reverse() || []);
@@ -50,7 +57,7 @@ const Invoice = () => {
   const getInv = async (fy, gstStatus) => {
     setLoading(true);
     try {
-      const res = await getInvno(fy, gstStatus);
+      const res = await getInvno(fy,cID, gstStatus);
       setCreateForm((prev) => ({
         ...prev,
         invNo: res.data,
@@ -117,7 +124,7 @@ const Invoice = () => {
         invDateFrom: "",
         invDateTo: "",
         discount: 0,
-        clientid: 1
+        clientid: cID
       });
 
     } catch (e) {
@@ -180,29 +187,32 @@ const Invoice = () => {
 
   /* ================= VIEW ================= */
   const handleView = async () => {
+  if (!validateEdit()) return;
 
-    if (!validateEdit()) return;
+  const padded = editInvoiceNo.inv.padStart(4, "0");
+  const inv = `${fy}/${editInvoiceNo.gstMidlabell}/${padded}`;
 
-    const padded = editInvoiceNo.inv.padStart(4, "0");
-    const inv = `${fy}/${editInvoiceNo.gstMidlabell}/${padded}`;
+  setLoading(true);
 
-    setLoading(true);
+  try {
+    // Fetch PDF as blob
+    const response = await getinvpdf(inv, { responseType: "blob" });
 
-    try {
+    // Create a blob URL
+    const file = new Blob([response.data], { type: "application/pdf" });
+    const fileURL = URL.createObjectURL(file);
 
-      await getinvpdf(inv);
+    // Open in new tab
+    window.open(fileURL, "_blank");
 
-      toast.success(`Invoice:${inv} found`);
-
-      window.open(`http://localhost:8080/inv/getpdf?inv_no=${inv}`, "_blank");
-
-    } catch (e) {
-      const msg = e?.response?.data?.message || "Invoice failed";
-      toast.error(msg);
-    } finally {
-      setLoading(false);
-    }
-  };
+    toast.success(`Invoice: ${inv} found`);
+  } catch (e) {
+    const msg = e?.response?.data?.message || "Invoice failed";
+    toast.error(msg);
+  } finally {
+    setLoading(false);
+  }
+};
 
   /* ================= LOAD CUSTOMERS ================= */
   useEffect(() => {
@@ -213,7 +223,7 @@ const Invoice = () => {
 
       try {
 
-        const formatted = await fetchCustomers(1);
+        const formatted = await fetchCustomers(cID);
         setCustomer(formatted || []);
 
       } catch {
@@ -310,7 +320,7 @@ const Invoice = () => {
                 Create
               </button>
               <button
-                onClick={() => setCreateForm({ invNo: "", custid: "", invDate: "", invDateFrom: "", invDateTo: "", clientid: 1 })}
+                onClick={() => setCreateForm({ invNo: "", custid: "", invDate: "", invDateFrom: "", invDateTo: "", clientid: cID })}
                 className="px-4 py-2 bg-gray-300 rounded"
               >
                 Cancel

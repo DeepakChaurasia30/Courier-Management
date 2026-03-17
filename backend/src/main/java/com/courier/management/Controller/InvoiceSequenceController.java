@@ -20,8 +20,9 @@ public class InvoiceSequenceController {
 
     @GetMapping("/getseq")
     public Integer getClient(@RequestParam String fy,
-            @RequestParam Boolean id) {
-        return invoiceSequenceServices.getInvSeq(fy, id);
+                             @RequestParam Boolean id,
+                             @RequestParam Integer clientId) {
+        return invoiceSequenceServices.getInvSeq(fy, clientId, id);
     }
 
 }

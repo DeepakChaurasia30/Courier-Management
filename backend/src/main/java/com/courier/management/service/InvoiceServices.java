@@ -167,7 +167,7 @@ public class InvoiceServices {
                 String[] invParts = dto.getInvNo().split("/");
 
                 InvoiceSequence invoiceSequence = invoiceSequenceRepository
-                                .findByFy(invParts[0])
+                                .findByClient_ClientIdAndFy(client.getClientId(),invParts[0])
                                 .orElseThrow(() -> new RuntimeException("Invoice Sequencer Failed"));
 
                 if ("INV".equals(invParts[1])) {

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect,useContext } from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -15,8 +15,13 @@ import { getpdfSlip } from "../../api/printslip";
 import Spinner from "../../components/ui/Spinner"
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const ShipmentTable = () => {
+
+    const {clientID:cID}  = useContext(GlobalContext)
+  
+
 
   const today = new Date();
 
@@ -143,7 +148,7 @@ const ShipmentTable = () => {
       const start = startDate.toISOString().split("T")[0];
       const end = endDate.toISOString().split("T")[0];
 
-      const res = await fetchShipments(1, start, end);
+      const res = await fetchShipments(cID, start, end);
 
       setData(res.data);
       setRowSelection({});

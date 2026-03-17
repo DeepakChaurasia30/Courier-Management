@@ -23,4 +23,8 @@ public class InvoiceSequence {
     @Column(name = "ng_last")
     private Integer ngLast = 0;
 
+    @ManyToOne(fetch = FetchType.LAZY)  // or EAGER if you always want client data
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
+
 }

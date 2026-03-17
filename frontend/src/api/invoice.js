@@ -4,7 +4,7 @@ export const genInv =(data)=>axiosInstance.post("/inv/add",data)
 
 export const getStatus = (inv_no) => axiosInstance.get(`/inv/getStatus?inv_no=${inv_no}`)
 
-export const getinvpdf = (inv_no) => axiosInstance.get(`/inv/getpdf?inv_no=${inv_no}` );
+export const getinvpdf = (inv_no) => axiosInstance.get(`/inv/getpdf?inv_no=${inv_no}` ,{ responseType: "blob" });
 
 // export const deleteInv =(inv_no)=>axiosInstance.delete(`/inv/delete?inv_no=${inv_no}`);
 

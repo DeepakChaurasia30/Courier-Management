@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState ,useContext} from "react";
 import Select from "react-select";
 import AsyncSelect from "react-select/async";
 import toast, { Toaster } from "react-hot-toast";
@@ -18,8 +18,11 @@ import {
 } from "../../api/awbApi";
 import { getMatchPin, getPinDet } from "../../api/destApi";
 import { getSummaryAWB } from "../utilities/getSummaryAWB";
-
+import { GlobalContext } from "../../context/GlobalContext";
 const EntryForm = () => {
+
+    const {clientID:cID}  = useContext(GlobalContext)
+  
   const keyPressListen = useRef([]);
 
   const [customer, setCustomer] = useState([]);
@@ -30,7 +33,6 @@ const EntryForm = () => {
   const [entries, setEntries] = useState([]);
   const [confirmType, setConfirmType] = useState(null);
   const [customerSummary, setCustomerSummary] = useState({ count: 0, total: 0 });
-
 
   const handleTable = async () => {
     setLoading(true);
@@ -108,7 +110,7 @@ const EntryForm = () => {
     const loadCust = async () => {
       try {
         setLoading(true);
-        const formatted = await fetchCustomers(1); //will fix hardcore value
+        const formatted = await fetchCustomers(cID); //will fix hardcore value
 
         if (formatted === null) {
           throw new Error("Data is null");
@@ -343,7 +345,7 @@ const EntryForm = () => {
 
       remark: form.remark || null,
 
-      clientId: 1
+      clientId: cID
     };
 
     if (!isObjectComplete(payload)) {
@@ -416,7 +418,7 @@ const EntryForm = () => {
 
         remark: form.remark || null,
 
-        clientId: 1
+        clientId: cID
       };
 
       await updateAwb(form.awbid, payload);

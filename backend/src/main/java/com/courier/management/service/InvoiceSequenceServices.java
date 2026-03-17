@@ -2,6 +2,8 @@ package com.courier.management.service;
 
 import java.util.Optional;
 
+import com.courier.management.entity.Client;
+import com.courier.management.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import com.courier.management.entity.InvoiceSequence;
@@ -15,11 +17,12 @@ import lombok.RequiredArgsConstructor;
 public class InvoiceSequenceServices {
 
      private final InvoiceSequenceRepository invoiceSequenceRepository;
-    public Integer getInvSeq(String fY,Boolean isGst){
+     private final ClientRepository clientRepository;
+    public Integer getInvSeq(String fY,Integer clientId,Boolean isGst){
         Optional<InvoiceSequence> sequence;
-        if(fY!=null)
+        if(fY!=null && clientId!=null)
         {
-            sequence = invoiceSequenceRepository.findByFy(fY);
+            sequence = invoiceSequenceRepository.findByClient_ClientIdAndFy(clientId,fY);
 
             if(sequence.isPresent())
             {
@@ -32,7 +35,10 @@ public class InvoiceSequenceServices {
             }
 
             InvoiceSequence invoiceSequence = new InvoiceSequence();
+            Client client = clientRepository.findById(clientId)
+                    .orElseThrow(()-> new RuntimeException("Client no found from Sequence"));
             invoiceSequence.setFy(fY);
+            invoiceSequence.setClient(client);
 
             invoiceSequenceRepository.save(invoiceSequence);
             // invoiceSequence.setGstLast(0);
