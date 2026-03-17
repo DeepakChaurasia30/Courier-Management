@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
 public class EntryDTO {
-
 
     private Long id;
     private String awbNo;
@@ -30,7 +30,14 @@ public class EntryDTO {
 
     private Integer noPcs;
 
-    private String pType;
+    private String ptype;
 
-     
+    private String courierName;
+
+    private String dimension;
+
+    private BigDecimal volWeight;
+
+    private String remark;
+
 }

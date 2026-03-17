@@ -23,6 +23,6 @@ public interface EntryProjection {
 
     Integer getNoPcs();
 
-    String getPType();
+    String getPtype();
 
 }

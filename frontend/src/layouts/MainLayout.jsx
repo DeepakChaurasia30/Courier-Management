@@ -9,6 +9,7 @@ import Invoice from "../modules/invoice/Invoice";
 import Customer from "../modules/Customer/Cusotmer";
 import Company from "../modules/Company/Company";
 import Home from "../components/ui/Home";
+import ShipmentTable from "../modules/shipment/ShipmentTable";
 const menuItems = [
   { name: "Home", path: "/", icon: "🏠", end: true },
   { name: "Booking", path: "/booking", icon: "📦" },
@@ -49,7 +50,7 @@ const MainLayout = () => {
 
             <Route path="/company" element={<Company />} />
 
-            <Route path="/reports" element={<div>Reports Page</div>} />
+            <Route path="/reports" element={<ShipmentTable/>} />
 
           </Routes>
 

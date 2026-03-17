@@ -5,10 +5,9 @@ import java.time.LocalDate;
 
 public interface EntryTableProjection {
 
-     String getAwbNo();
+    String getAwbNo();
 
     LocalDate getAwbDate();
-
 
     String getPinCode();
 
@@ -18,5 +17,17 @@ public interface EntryTableProjection {
 
     String getSrvType();
 
-    
+    String getCustomerCustCode();
+
+    String getPtype();
+
+    String getCenterDestName();
+
+    String getNoPcs();
+
+    String getVolWeight();
+
+    String getCourierName();
+
+    String getRemark();
 }

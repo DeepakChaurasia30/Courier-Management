@@ -66,15 +66,35 @@ const EntryForm = () => {
     customer: "",
     awb: "",
     date: new Date().toLocaleDateString("en-CA"),
+
+    courier: "SMCS",
+
     destCode: "",
     destPin: "",
     destName: "",
+
     doxType: "DX",
     serviceType: "SF",
+
     weight: "0.1",
+    volWeight: "",
+
+    length: "",
+    breadth: "",
+    height: "",
+    dimension: "",
+
     charges: "",
-    invoiceNo: "",
     piece: 1,
+
+    remark: "",
+    invoiceNo: ""
+  };
+
+  //volume weight calco
+  const calcVolWeight = (l, b, h) => {
+    if (!l || !b || !h) return "";
+    return ((Number(l) * Number(b) * Number(h)) / 5000).toFixed(2);
   };
 
   const [form, setForm] = useState(defaultForm);
@@ -122,8 +142,11 @@ const EntryForm = () => {
       if (name === "doxType") {
         if (value === "DX") {
           updated.weight = "0.1";
-        } else {
-          updated.weight = "";
+          updated.length = "";
+          updated.breadth = "";
+          updated.height = "";
+          updated.dimension = "";
+          updated.volWeight = "";
         }
       }
 
@@ -133,25 +156,25 @@ const EntryForm = () => {
 
   // Handle Summary 
 
-  const handleSummary = async(id)=>{
+  const handleSummary = async (id) => {
 
     setLoading(true);
 
     try {
 
       const res = await getSummaryAWB(id);
-      setCustomerSummary({count:res.count,total:res.totalCharge})
-      setLoading(false);  
-      
+      setCustomerSummary({ count: res.count, total: res.totalCharge })
+      setLoading(false);
+
     } catch (err) {
 
-       const msg =
-          err?.response?.data?.message ||
-          err?.response?.data ||
-          err.message ||
-          "Customer Load failed";
-        toast.error(msg);
-            setLoading(false);  
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        err.message ||
+        "Customer Load failed";
+      toast.error(msg);
+      setLoading(false);
 
     }
   }
@@ -250,21 +273,47 @@ const EntryForm = () => {
 
     const pinDet = await getPinDet(data.pinCode);
 
+
+    let l = "", b = "", h = "";
+
+    if (data.dimension) {
+      const parts = data.dimension.split("*");
+      l = parts[0] || "";
+      b = parts[1] || "";
+      h = parts[2] || "";
+    }
+
     setForm({
-      awbid: data.id,
-      customer: data.customerId,
-      awb: awbNo,
-      date: data.awbDate,
-      destPin: data.pinCode,
-      destCode: data.destid,
-      destName: pinDet.data.centerName,
-      weight: data.weight,
-      charges: data.charge,
-      serviceType: data.srvType,
-      doxType: data.pType,
-      invoiceNo: data.invoiceId,
-      piece: data.noPcs,
+      awbid: data.id || "",
+      customer: data.customerId || "",
+      awb: awbNo || "",
+      date: data.awbDate || "",
+      courier: data.courierName || "SMCS",
+
+      destCode: data.destid || "",
+      destPin: data.pinCode || "",
+      destName: pinDet.data.centerName || "",
+
+      doxType: data.ptype || "DX",
+      serviceType: data.srvType || "SF",
+
+      weight: data.weight || "",
+      charges: data.charge || "",
+
+      invoiceNo: data.invoiceId || "",
+      piece: data.noPcs || 1,
+
+      length: l,
+      breadth: b,
+      height: h,
+
+      dimension: data.dimension || "",
+      volWeight: data.volWeight || "",
+
+      remark: data.remark || ""
     });
+
+
 
   };
 
@@ -275,14 +324,26 @@ const EntryForm = () => {
       customerId: form.customer,
       awbNo: form.awb,
       awbDate: form.date,
+      courierName: form.courier,
+
       destid: form.destCode,
-      srvType: form.serviceType,
-      weight: form.weight,
-      charge: form.charges,
       pinCode: form.destPin,
-      clientId: 1,
+
+      srvType: form.serviceType,
+      ptype: form.doxType,
+
+      weight: form.weight,
+      volWeight: form.volWeight || null,
+
+      dimension: form.dimension || null,
+
+      charge: form.charges,
+
       noPcs: form.piece,
-      pType: form.doxType,
+
+      remark: form.remark || null,
+
+      clientId: 1
     };
 
     if (!isObjectComplete(payload)) {
@@ -334,17 +395,28 @@ const EntryForm = () => {
 
       const payload = {
         customerId: form.customer,
-        awbDate: form.date,
-        destid: form.destCode,
-        srvType: form.serviceType,
-        weight: form.weight,
-        charge: form.charges,
-        pinCode: form.destPin,
-        clientId: 1,
-        noPcs: form.piece,
         awbNo: form.awb,
-        pType: form.doxType,
+        awbDate: form.date,
+        courierName: form.courier,
+
+        destid: form.destCode,
+        pinCode: form.destPin,
+
+        srvType: form.serviceType,
+        ptype: form.doxType,
+
+        weight: form.weight,
+        volWeight: form.volWeight || null,
+
+        dimension: form.dimension || null,
+
+        charge: form.charges,
+
         noPcs: form.piece,
+
+        remark: form.remark || null,
+
+        clientId: 1
       };
 
       await updateAwb(form.awbid, payload);
@@ -490,7 +562,29 @@ const EntryForm = () => {
         </div>
 
 
-        <div className="grid grid-cols-3 gap-4 text-sm">
+   <div className="grid grid-cols-4 gap-4 text-sm">
+
+          { /* COURIER */}
+
+          <div>
+            <label className="block mb-1">Courier</label>
+            <select
+              name="courier"
+              value={form.courier}
+              onChange={handleChange}
+              className={inputStyle}
+            >
+              <option value="SMCS">SMCS</option>
+              <option value="DTDC">DTDC</option>
+              <option value="BD">BD</option>
+              <option value="TRAC">TRAC</option>
+              <option value="SKY">SKY</option>
+              <option value="OLS">OLS</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+          </div>
+
+
 
           {/* AWB */}
           <div>
@@ -514,7 +608,7 @@ const EntryForm = () => {
             <div className="flex items-center gap-2">
               <label className="block">Customer || </label>
               <label className="text-sm text-red-400 font-medium">
-               Type : {gstStatus ? "GST Customer" : "CASH Customer"}
+                Type : {gstStatus ? "GST Customer" : "CASH Customer"}
               </label>
             </div>
 
@@ -647,136 +741,238 @@ const EntryForm = () => {
             />
           </div>
 
-          {/* Charges */}
+
+
+          {/* DIMENSION */}
+
           <div>
-            <label className="block mb-1">Charges</label>
-            <input
-              ref={(el) => (keyPressListen.current[8] = el)}
-              onKeyDown={(e) => handleKeyDown(e, 8)}
-              type="number"
-              name="charges"
-              value={form.charges}
-              onChange={handleChange}
-              className={inputStyle}
-            />
-          </div>
-        </div>
+            <label className="block mb-1">Dimension (L × B × H)</label>
 
-        {/* Buttons */}
-        <div className="flex justify-end gap-4 mt-6">
-          {awbStatus === "NEW" ? (
-            <button
-              ref={(el) => (keyPressListen.current[9] = el)}
-              onClick={saveEntry}
-              className="px-5 py-2 bg-green-600 text-white rounded-lg"
-            >
-              Add
-            </button>
-          ) : awbStatus !== "NOT_UPDATABLE" ? (
-            <>
-              <button
-                ref={(el) => (keyPressListen.current[10] = el)}
-                onClick={() => setConfirmType("UPDATE")}
-                className="px-5 py-2 bg-blue-600 text-white rounded-lg"
-              >
-                Update
-              </button>
+            <div className="grid grid-cols-3 gap-2">
 
-              <button
-                onClick={() => setConfirmType("DELETE")}
-                className="px-5 py-2 bg-red-600 text-white rounded-lg"
-              >
-                Delete
-              </button>
-            </>
-          ) : null}
+              <input
+                type="number"
+                placeholder="L"
+                disabled={form.doxType === "DX"}
+                value={form.length}
+                onChange={(e) => {
+                  const l = e.target.value;
+                  const b = form.breadth;
+                  const h = form.height;
 
+                  setForm(prev => ({
+                    ...prev,
+                    length: l,
+                    dimension: l && b && h ? `${l}*${b}*${h}` : "",
+                    volWeight: calcVolWeight(l, b, h)
+                  }));
+                }}
+                className={`${inputStyle} ${form.doxType === "DX" ? "bg-gray-200" : ""}`}
+              />
 
-          <button
-            onClick={formClean}
-            className="px-5 py-2 bg-gray-600 text-white rounded-lg"
-          >
-            Cancel
-          </button>
-        </div>
+              <input
+                type="number"
+                placeholder="B"
+                disabled={form.doxType === "DX"}
+                value={form.breadth}
+                onChange={(e) => {
+                  const b = e.target.value;
+                  const l = form.length;
+                  const h = form.height;
 
-        {/* TABLE */}
-        <div className="mt-8">
+                  setForm(prev => ({
+                    ...prev,
+                    breadth: b,
+                    dimension: l && b && h ? `${l}*${b}*${h}` : "",
+                    volWeight: calcVolWeight(l, b, h)
+                  }));
+                }}
+                className={`${inputStyle} ${form.doxType === "DX" ? "bg-gray-200" : ""}`}
+              />
 
-          <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+              <input
+                type="number"
+                placeholder="H"
+                disabled={form.doxType === "DX"}
+                value={form.height}
+                onChange={(e) => {
+                  const h = e.target.value;
+                  const l = form.length;
+                  const b = form.breadth;
 
-            {/* Scroll Container */}
-            <div className="max-h-64 overflow-y-auto">
-
-              <table className="w-full text-xs">
-
-                <thead className="bg-gray-50 sticky top-0 z-10 border-b border-gray-200">
-                  <tr className="text-gray-600 uppercase tracking-wide text-[11px]">
-                    <th className="px-3 py-2 text-left">Date</th>
-                    <th className="px-3 py-2 text-left">AWB</th>
-                    <th className="px-3 py-2 text-left">Pincode</th>
-                    <th className="px-3 py-2 text-left">Service</th>
-                    <th className="px-3 py-2 text-right">Weight</th>
-                    <th className="px-3 py-2 text-right">Charge</th>
-                  </tr>
-                </thead>
-
-                <tbody className="divide-y divide-gray-100">
-
-                  {entries.length === 0 ? (
-                    <tr>
-                      <td colSpan="6" className="text-center py-6 text-gray-400">
-                        No entries yet
-                      </td>
-                    </tr>
-                  ) : (
-                    entries.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="hover:bg-blue-50 transition-colors"
-                      >
-
-                        <td className="px-3 py-2 text-gray-700">
-                          {item.date}
-                        </td>
-
-                        <td className="px-3 py-2 font-medium text-gray-800">
-                          {item.awb}
-                        </td>
-
-                        <td className="px-3 py-2 text-gray-700">
-                          {item.destPin}
-                        </td>
-
-                        <td className="px-3 py-2">
-                          <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-[11px]">
-                            {item.serviceType}
-                          </span>
-                        </td>
-
-                        <td className="px-3 py-2 text-right text-gray-700">
-                          {item.weight}
-                        </td>
-
-                        <td className="px-3 py-2 text-right font-semibold text-gray-800">
-                          ₹{item.charges}
-                        </td>
-
-                      </tr>
-                    ))
-                  )}
-
-                </tbody>
-
-              </table>
+                  setForm(prev => ({
+                    ...prev,
+                    height: h,
+                    dimension: l && b && h ? `${l}*${b}*${h}` : "",
+                    volWeight: calcVolWeight(l, b, h)
+                  }));
+                }}
+                className={`${inputStyle} ${form.doxType === "DX" ? "bg-gray-200" : ""}`}
+              />
 
             </div>
+          </div>
+      
+
+        {/* VOL WEIGHT */}
+
+        <div>
+          <label className="block mb-1">Vol Weight</label>
+          <input
+            type="number"
+            name="volWeight"
+            value={form.volWeight}
+            disabled={form.doxType === "DX"}
+            onChange={handleChange}
+            className={`${inputStyle} ${form.doxType === "DX" ? "bg-gray-200" : ""}`}
+          />
+        </div>
+
+        {/* Charges */}
+        <div>
+          <label className="block mb-1">Charges</label>
+          <input
+            ref={(el) => (keyPressListen.current[8] = el)}
+            onKeyDown={(e) => handleKeyDown(e, 8)}
+            type="number"
+            name="charges"
+            value={form.charges}
+            onChange={handleChange}
+            className={inputStyle}
+          />
+        </div>
+
+        {/* REMARK */}
+
+        <div className="col-span-3">
+          <label className="block mb-1">Remark</label>
+          <input
+            name="remark"
+            value={form.remark}
+            onChange={handleChange}
+            className={inputStyle}
+          />
+        </div>
+
+        </div>
+ 
+
+
+      {/* Buttons */}
+      <div className="flex justify-end gap-4 mt-6">
+        {awbStatus === "NEW" ? (
+          <button
+            ref={(el) => (keyPressListen.current[9] = el)}
+            onClick={saveEntry}
+            className="px-5 py-2 bg-green-600 text-white rounded-lg"
+          >
+            Add
+          </button>
+        ) : awbStatus !== "NOT_UPDATABLE" ? (
+          <>
+            <button
+              ref={(el) => (keyPressListen.current[10] = el)}
+              onClick={() => setConfirmType("UPDATE")}
+              className="px-5 py-2 bg-blue-600 text-white rounded-lg"
+            >
+              Update
+            </button>
+
+            <button
+              onClick={() => setConfirmType("DELETE")}
+              className="px-5 py-2 bg-red-600 text-white rounded-lg"
+            >
+              Delete
+            </button>
+          </>
+        ) : null}
+
+
+        <button
+          onClick={formClean}
+          className="px-5 py-2 bg-gray-600 text-white rounded-lg"
+        >
+          Cancel
+        </button>
+      </div>
+
+      {/* TABLE */}
+      <div className="mt-8">
+
+        <div className="border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+
+          {/* Scroll Container */}
+          <div className="max-h-64 overflow-y-auto">
+
+            <table className="w-full text-xs">
+
+              <thead className="bg-gray-50 sticky top-0 z-10 border-b border-gray-200">
+                <tr className="text-gray-600 uppercase tracking-wide text-[11px]">
+                  <th className="px-3 py-2 text-left">Date</th>
+                  <th className="px-3 py-2 text-left">AWB</th>
+                  <th className="px-3 py-2 text-left">Pincode</th>
+                  <th className="px-3 py-2 text-left">Service</th>
+                  <th className="px-3 py-2 text-right">Weight</th>
+                  <th className="px-3 py-2 text-right">Charge</th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-gray-100">
+
+                {entries.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="text-center py-6 text-gray-400">
+                      No entries yet
+                    </td>
+                  </tr>
+                ) : (
+                  entries.map((item, index) => (
+                    <tr
+                      key={index}
+                      className="hover:bg-blue-50 transition-colors"
+                    >
+
+                      <td className="px-3 py-2 text-gray-700">
+                        {item.date}
+                      </td>
+
+                      <td className="px-3 py-2 font-medium text-gray-800">
+                        {item.awb}
+                      </td>
+
+                      <td className="px-3 py-2 text-gray-700">
+                        {item.destPin}
+                      </td>
+
+                      <td className="px-3 py-2">
+                        <span className="px-2 py-0.5 rounded bg-gray-100 text-gray-700 text-[11px]">
+                          {item.serviceType}
+                        </span>
+                      </td>
+
+                      <td className="px-3 py-2 text-right text-gray-700">
+                        {item.weight}
+                      </td>
+
+                      <td className="px-3 py-2 text-right font-semibold text-gray-800">
+                        ₹{item.charges}
+                      </td>
+
+                    </tr>
+                  ))
+                )}
+
+              </tbody>
+
+            </table>
 
           </div>
 
         </div>
+
       </div>
     </div>
+      </div>
   );
 };
 

@@ -29,7 +29,12 @@ public class EntryMapper {
         entry.setSrvType(dto.getSrvType());
         entry.setPinCode(dto.getPinCode());
         entry.setNoPcs(dto.getNoPcs());
-        entry.setPType(dto.getPType());
+        entry.setPtype(dto.getPtype());
+
+        entry.setCourierName(dto.getCourierName());
+        entry.setDimension(dto.getDimension());
+        entry.setVolWeight(dto.getVolWeight());
+        entry.setRemark(dto.getRemark());
 
         // Relations handled in service layer
 
@@ -53,12 +58,17 @@ public class EntryMapper {
         dto.setEntryDate(entry.getEntryDate());
         dto.setPinCode(entry.getPinCode());
         dto.setNoPcs(entry.getNoPcs());
-        dto.setPType(entry.getPType());
+        dto.setPtype(entry.getPtype());
 
         // Relations safe mapping
         dto.setDestid(entry.getDestid());
         dto.setClientId(entry.getClientid());
         dto.setCustomerId(entry.getCustid());
+
+        dto.setCourierName(entry.getCourierName());
+        dto.setDimension(entry.getDimension());
+        dto.setVolWeight(entry.getVolWeight());
+        dto.setRemark(entry.getRemark());
 
         if (entry.getInvoice() != null) {
             Invoice inv = entry.getInvoice();

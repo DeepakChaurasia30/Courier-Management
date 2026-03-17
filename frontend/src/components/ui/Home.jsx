@@ -46,6 +46,13 @@ const Home = () => {
         <div className="grid grid-cols-3 gap-4">
 
           <button
+            onClick={() => navigate("/reports")}
+            className="bg-green-600 text-white p-4 rounded-lg shadow hover:bg-green-700"
+          >
+            🔍 Search Booking
+          </button>
+
+          <button
             onClick={() => navigate("/booking")}
             className="bg-blue-600 text-white p-4 rounded-lg shadow hover:bg-blue-700"
           >

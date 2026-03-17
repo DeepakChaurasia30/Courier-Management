@@ -13,4 +13,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<CustProjection> findByClientId(Integer clientId);
 
+    Customer findByCustCode(String custCode);
+
 }

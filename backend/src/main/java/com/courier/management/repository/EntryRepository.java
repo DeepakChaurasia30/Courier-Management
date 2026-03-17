@@ -63,4 +63,9 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
             """)
     EntryMemoDTO getSummary(@Param("custID") Long custID);
 
+    List<EntryTableProjection> findByClientidAndAwbDateBetween(
+            Integer clientid,
+            LocalDate startDate,
+            LocalDate endDate);
+
 }

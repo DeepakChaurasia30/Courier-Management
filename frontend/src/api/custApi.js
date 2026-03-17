@@ -4,10 +4,10 @@ import axiosInstance from "./axiosInstance";
 export const getAllCust = (id) => axiosInstance.get(`/cust/getcust?id=${id}`);
 
 export const addCustomer = (data) =>
-  axiosInstance.post("/cust/add", data);
+  axiosInstance.post("/cust/add", data, { headers: { "Content-Type": "multipart/form-data" } });
 
 export const updateCustomer = (id, data) =>
-  axiosInstance.put(`/cust/update/${id}`, data);
+  axiosInstance.put(`/cust/update/${id}`, data, { headers: { "Content-Type": "multipart/form-data" } });
 
 export const deleteCustomer = (id) =>
   axiosInstance.delete(`/cust/delete/${id}`);

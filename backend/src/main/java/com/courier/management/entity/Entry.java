@@ -76,6 +76,15 @@ public class Entry {
     @Column(name = "count_p", nullable = false)
     private Integer noPcs;
     @Column(name = "p_type", nullable = false)
-    private String pType;
+    private String ptype;
+
+    @Column(name = "c_name", nullable = false)
+    private String courierName;
+    @Column(name = "dimension", nullable = true)
+    private String dimension;
+    @Column(name = "vol_weight", nullable = true)
+    private BigDecimal volWeight;
+    @Column(name = "remark", nullable = true)
+    private String remark;
 
 }

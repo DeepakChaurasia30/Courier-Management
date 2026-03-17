@@ -24,4 +24,5 @@ public class CustomerDTO {
     
     private Integer clientId;       // maps to Customer.client
     private String custStateCode;   // maps to Customer.state.stateCode
+    private String imagePath;  // use to disp images
 }

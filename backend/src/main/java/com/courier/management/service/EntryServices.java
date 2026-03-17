@@ -1,5 +1,6 @@
 package com.courier.management.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +70,7 @@ public class EntryServices {
         Entry entry = entryMapper.dtoToEntry(dto);
 
         entry.setAwbNo(dto.getAwbNo().trim().toUpperCase());
-        entry.setPType(dto.getPType().toUpperCase());
+        entry.setPtype(dto.getPtype().toUpperCase());
         entry.setEntryDate(LocalDateTime.now());
 
         setCustomer(dto, entry);
@@ -104,18 +105,15 @@ public class EntryServices {
         return entryMapper.entryToDTO(entry);
     }
 
+    public List<EntryTableProjection> getTopRecords() {
 
-    public List<EntryTableProjection> getTopRecords(){
+        List<EntryTableProjection> list = entryRepository.findTop50ByOrderByEntryDateDesc();
 
-           List<EntryTableProjection> list = entryRepository.findTop50ByOrderByEntryDateDesc();
-
-           if(list.isEmpty())
-           {
+        if (list.isEmpty()) {
             throw new RuntimeException("No valid Record Found for Table");
-           }
+        }
 
-
-           return list;
+        return list;
     }
 
     /*
@@ -137,11 +135,16 @@ public class EntryServices {
 
         entry.setAwbDate(dto.getAwbDate());
         entry.setWeight(dto.getWeight());
-        entry.setPType(dto.getPType().toUpperCase());
+        entry.setPtype(dto.getPtype().toUpperCase());
         entry.setNoPcs(dto.getNoPcs());
         entry.setCharge(dto.getCharge());
         entry.setSrvType(dto.getSrvType());
         entry.setPinCode(dto.getPinCode());
+        // Introduce new fileds
+        entry.setCourierName(dto.getCourierName());
+        entry.setDimension(dto.getDimension());
+        entry.setVolWeight(dto.getVolWeight());
+        entry.setRemark(dto.getRemark());
 
         setCustomer(dto, entry);
         setCenter(dto, entry);
@@ -149,6 +152,17 @@ public class EntryServices {
         entryRepository.save(entry);
 
         return "Entry updated successfully";
+    }
+
+    // Fetch data to display daily tracking
+
+    public List<EntryTableProjection> getEntryBeetweenDates(Integer clientid, LocalDate startDate, LocalDate endDate) {
+        List<EntryTableProjection> list = entryRepository.findByClientidAndAwbDateBetween(clientid, startDate, endDate);
+
+        if (list.isEmpty()) {
+            throw new RuntimeException("No Valid Records Found");
+        }
+        return list;
     }
 
     /*
@@ -173,22 +187,19 @@ public class EntryServices {
         entryRepository.delete(entry);
     }
 
-     /*
+    /*
      * ---------------------------------------------
      * Memo METHOD
      * ---------------------------------------------
      */
 
-     public EntryMemoDTO getSummary(Long custID)
-     {
+    public EntryMemoDTO getSummary(Long custID) {
         EntryMemoDTO getSumandCount = entryRepository.getSummary(custID);
-        if(getSumandCount.equals(null))
-        {
+        if (getSumandCount.equals(null)) {
             throw new RuntimeException("No Valid Record Founds");
         }
         return getSumandCount;
-     }
-
+    }
 
     /*
      * ---------------------------------------------
@@ -230,7 +241,7 @@ public class EntryServices {
             throw new RuntimeException("Number of pieces must be greater than 0");
         }
 
-        if (dto.getPType() == null || dto.getPType().isBlank()) {
+        if (dto.getPtype() == null || dto.getPtype().isBlank()) {
             throw new RuntimeException("Parcel type (DX / ND) is required");
         }
 

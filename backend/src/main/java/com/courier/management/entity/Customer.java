@@ -23,7 +23,7 @@ import lombok.Setter;
 @Table(name = "cust_tbl", uniqueConstraints = {
         @UniqueConstraint(columnNames = "cust_name"),
         @UniqueConstraint(columnNames = "cust_code"),
-        @UniqueConstraint(columnNames = "client_id" )
+        @UniqueConstraint(columnNames = "client_id")
 })
 public class Customer {
 
@@ -81,4 +81,7 @@ public class Customer {
 
     @Column(name = "cust_state_code", nullable = false, insertable = false, updatable = false)
     private String custStateCode;
+
+    @Column(name = "image_path")
+    private String imagePath;
 }

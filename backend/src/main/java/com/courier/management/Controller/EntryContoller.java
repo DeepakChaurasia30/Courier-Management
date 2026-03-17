@@ -13,6 +13,7 @@ import com.courier.management.service.EntryServices;
 
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -70,6 +71,14 @@ public class EntryContoller {
     public EntryMemoDTO getSummary(@RequestParam Long custID) {
        return entryServices.getSummary(custID);
     }
-    
+
+    @GetMapping("/btwdates")
+    public List<EntryTableProjection> getDataBetweenDates(
+        @RequestParam Integer clientid,
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate)
+    {
+         return entryServices.getEntryBeetweenDates(clientid, startDate, endDate);
+    }  
 
 }

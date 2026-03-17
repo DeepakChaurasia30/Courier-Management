@@ -2,6 +2,7 @@ package com.courier.management.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.courier.management.dto.CustomerDTO;
 import com.courier.management.entity.Customer;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -37,16 +38,20 @@ public class CustomerController {
     }
 
     // Add new customer using DTO
-    @PostMapping("/add")
-    public ResponseEntity<Customer> addCustomer(@RequestBody CustomerDTO dto) {
-        return customerService.addCustomer(dto);
+    @PostMapping(value = "/add", consumes = "multipart/form-data")
+    public ResponseEntity<Customer> addCustomer(
+            @RequestPart("data") CustomerDTO dto,
+            @RequestPart(value = "image", required = false) MultipartFile image) {
+        return customerService.addCustomer(dto, image);
     }
 
-    // Update existing customer using DTO
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id,
-                                                   @RequestBody CustomerDTO dto) {
-        return customerService.updateCustomer(id, dto);
+    @PutMapping(value = "/update/{id}", consumes = "multipart/form-data")
+    public ResponseEntity<Customer> updateCustomer(
+            @PathVariable Long id,
+            @RequestPart("data") CustomerDTO dto,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+
+        return customerService.updateCustomer(id, dto, image);
     }
 
     // Delete customer
